@@ -1,7 +1,7 @@
+import 'package:caress_care/view/screens/auth/login_screen.dart';
+import 'package:caress_care/view/screens/auth/register_screen.dart';
 import 'package:caress_care/view/screens/splash_screen.dart';
 import 'package:get/get.dart';
-// import 'package:caress_care/views/auth/login_screen.dart';
-// import 'package:caress_care/views/auth/register_screen.dart';
 // import 'package:caress_care/views/mood/mood_screen.dart';
 // import 'package:caress_care/views/mood/motivation_screen.dart';
 // import 'package:caress_care/views/mood/assessment_screen.dart';
@@ -20,8 +20,8 @@ class AppRoutes {
 
   static final routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
-    // GetPage(name: login, page: () => const LoginScreen()),
-    // GetPage(name: register, page: () => const RegisterScreen()),
+    GetPage(name: login, page: () => const LoginScreen()),
+    GetPage(name: register, page: () => const RegisterScreen()),
     // GetPage(name: mood, page: () => const MoodScreen()),
     // GetPage(name: motivation, page: () => const MotivationScreen()),
     // GetPage(name: assessment, page: () => const AssessmentScreen()),
