@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Caress Care',
 
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppRoutes.checklistScreen,
 
       getPages: AppRoutes.routes,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),

@@ -1,3 +1,4 @@
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -21,7 +22,7 @@ class CustomTextField extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
@@ -45,7 +46,7 @@ class CustomTextField extends StatelessWidget {
           hintStyle: const TextStyle(
             fontFamily: 'Poppins',
             fontSize: 14,
-            color: Colors.grey,
+            color: AppColors.grey,
           ),
           border: InputBorder.none,
           prefixIcon:

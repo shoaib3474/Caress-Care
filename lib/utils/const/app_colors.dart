@@ -16,7 +16,10 @@ class AppColors {
   // Background and Surface
   static const Color background = Color(0xFFF9F9F9); // Light Gray Background
   static const Color white = Colors.white; // Pure White
-  static const Color shadow = Color(0x29000000); // Light Black Shadow (opacity)
+  static const Color shadow = Color(0x29000000);
+
+  static const Color Black = Color(0xFF000000);
+  static const Color grey = Color(0xFF808080); // Light Black Shadow (opacity)
 
   // Text Colors
   static const Color textPrimary = Colors.black87; // Main Text

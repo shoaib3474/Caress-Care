@@ -1,4 +1,5 @@
 import 'package:caress_care/controller/mod_ctrl.dart';
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChecklistScreen extends StatefulWidget {
@@ -85,7 +86,7 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                       color:
                           i <= controller.currentStep
                               ? controller.getStepColor(i)
-                              : Colors.grey.shade300,
+                              : AppColors.gradientTop,
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
@@ -119,11 +120,11 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                         Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: AppColors.white,
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.06),
+                                color: AppColors.Black,
                                 blurRadius: 16,
                                 offset: const Offset(0, 6),
                               ),
@@ -149,14 +150,14 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                                     q.text,
                                     style: const TextStyle(
                                       fontSize: 16,
-                                      color: Colors.black87,
+                                      color: AppColors.textPrimary,
                                     ),
                                   ),
                                   value: q.isSelected,
                                   activeColor: controller.getStepColor(
                                     controller.currentStep,
                                   ),
-                                  checkColor: Colors.white,
+                                  checkColor: AppColors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
