@@ -1,6 +1,5 @@
+import 'package:caress_care/controller/mod_ctrl.dart';
 import 'package:flutter/material.dart';
-import 'package:caress_care/model/mod_model.dart';
-// import 'package:caress_care/utils/const/app_colors.dart'; // Uncomment if you have AppColors
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
@@ -11,18 +10,15 @@ class ChecklistScreen extends StatefulWidget {
 
 class _ChecklistScreenState extends State<ChecklistScreen>
     with TickerProviderStateMixin {
-  late List<MentalHealthQuestion> anxietyList;
-  late List<MentalHealthQuestion> stressList;
-  late List<MentalHealthQuestion> depressionList;
-
-  bool showMore = false;
-  int currentStep = 0;
+  late final ChecklistController controller;
   late AnimationController _fadeController;
   late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+    controller = ChecklistController();
+    controller.addListener(() => setState(() {}));
 
     _fadeController = AnimationController(
       vsync: this,
@@ -33,78 +29,22 @@ class _ChecklistScreenState extends State<ChecklistScreen>
       curve: Curves.easeInOut,
     );
     _fadeController.forward();
-
-    anxietyList = [
-      MentalHealthQuestion(text: 'Increased heart rate (palpitations)'),
-      MentalHealthQuestion(text: 'Shortness of breath'),
-      MentalHealthQuestion(text: 'Muscle tension or aches'),
-      MentalHealthQuestion(text: 'Sweating'),
-      MentalHealthQuestion(text: 'Shaking or trembling'),
-      MentalHealthQuestion(text: 'Dizziness or light-headedness'),
-      MentalHealthQuestion(text: 'Fatigue or low energy'),
-      MentalHealthQuestion(text: 'Stomach issues'),
-      MentalHealthQuestion(text: 'Headaches'),
-      MentalHealthQuestion(text: 'Insomnia or trouble staying asleep'),
-      MentalHealthQuestion(text: 'Restlessness or feeling “on edge”'),
-      MentalHealthQuestion(text: 'Excessive worry or fear'),
-      MentalHealthQuestion(text: 'Difficulty concentrating'),
-      MentalHealthQuestion(text: 'Irritability'),
-      MentalHealthQuestion(text: 'Sense of impending doom'),
-    ];
-
-    depressionList = [
-      MentalHealthQuestion(text: 'Persistent sadness or low mood'),
-      MentalHealthQuestion(text: 'Loss of interest in activities'),
-      MentalHealthQuestion(text: 'Feelings of hopelessness'),
-      MentalHealthQuestion(text: 'Worthlessness or guilt'),
-      MentalHealthQuestion(text: 'Crying spells'),
-      MentalHealthQuestion(text: 'Difficulty concentrating'),
-      MentalHealthQuestion(text: 'Indecisiveness'),
-      MentalHealthQuestion(text: 'Negative thoughts'),
-      MentalHealthQuestion(text: 'Memory problems'),
-      MentalHealthQuestion(text: 'Thoughts of death'),
-      MentalHealthQuestion(text: 'Fatigue or low energy'),
-      MentalHealthQuestion(text: 'Changes in appetite'),
-    ];
-
-    stressList = [
-      MentalHealthQuestion(text: 'Headaches'),
-      MentalHealthQuestion(text: 'Muscle tension or pain'),
-      MentalHealthQuestion(text: 'Chest pain or rapid heartbeat'),
-      MentalHealthQuestion(text: 'Fatigue'),
-      MentalHealthQuestion(text: 'Stomach problems'),
-      MentalHealthQuestion(text: 'Frequent colds or infections'),
-      MentalHealthQuestion(text: 'Sleep disturbances'),
-      MentalHealthQuestion(text: 'Sweating or cold hands and feet'),
-      MentalHealthQuestion(text: 'Changes in appetite'),
-      MentalHealthQuestion(text: 'Grinding teeth or jaw clenching'),
-      MentalHealthQuestion(text: 'Irritability or short temper'),
-      MentalHealthQuestion(text: 'Feeling overwhelmed'),
-    ];
   }
 
   @override
   void dispose() {
+    controller.removeListener(() {});
     _fadeController.dispose();
     super.dispose();
   }
 
   void handleNext() async {
-    if (currentStep < 2) {
+    if (controller.currentStep < 2) {
       await _fadeController.reverse();
-      setState(() {
-        showMore = false;
-        currentStep++;
-      });
+      controller.nextStep(() {});
       _fadeController.forward();
     } else {
-      int totalSelected =
-          [
-            ...anxietyList,
-            ...stressList,
-            ...depressionList,
-          ].where((q) => q.isSelected).length;
-
+      int totalSelected = controller.totalSelected;
       if (totalSelected < 30) {
         Navigator.pushNamed(context, '/utubeVideoRef');
       } else {
@@ -113,53 +53,18 @@ class _ChecklistScreenState extends State<ChecklistScreen>
     }
   }
 
-  List<MentalHealthQuestion> getCurrentList() {
-    switch (currentStep) {
-      case 0:
-        return anxietyList;
-      case 1:
-        return depressionList;
-      case 2:
-        return stressList;
-      default:
-        return [];
-    }
-  }
-
-  String getCurrentTitle() {
-    switch (currentStep) {
-      case 0:
-        return 'Anxiety Symptoms';
-      case 1:
-        return 'Depression Symptoms';
-      case 2:
-        return 'Stress Symptoms';
-      default:
-        return '';
-    }
-  }
-
-  Color getStepColor(int step) {
-    // Use your AppColors if you have, else fallback
-    const List<Color> stepColors = [
-      Color(0xFF7B2FF7),
-      Color(0xFF9F44D3),
-      Color(0xFFBF5AE0),
-    ];
-    return stepColors[step];
-  }
-
   @override
   Widget build(BuildContext context) {
-    final questions = getCurrentList();
-    final displayList = showMore ? questions : questions.take(5).toList();
+    final questions = controller.getCurrentList();
+    final displayList =
+        controller.showMore ? questions : questions.take(5).toList();
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9),
       appBar: AppBar(
         title: const Text('Mental Health Checklist'),
         elevation: 0,
-        backgroundColor: getStepColor(currentStep),
+        backgroundColor: controller.getStepColor(controller.currentStep),
         foregroundColor: Colors.white,
         centerTitle: true,
       ),
@@ -178,8 +83,8 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                     height: 8,
                     decoration: BoxDecoration(
                       color:
-                          i <= currentStep
-                              ? getStepColor(i)
+                          i <= controller.currentStep
+                              ? controller.getStepColor(i)
                               : Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -203,7 +108,7 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                     ),
                   ),
               child: FadeTransition(
-                key: ValueKey(currentStep),
+                key: ValueKey(controller.currentStep),
                 opacity: _fadeAnimation,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
@@ -228,11 +133,13 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                getCurrentTitle(),
+                                controller.getCurrentTitle(),
                                 style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
-                                  color: getStepColor(currentStep),
+                                  color: controller.getStepColor(
+                                    controller.currentStep,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 16),
@@ -246,15 +153,15 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                                     ),
                                   ),
                                   value: q.isSelected,
-                                  activeColor: getStepColor(currentStep),
+                                  activeColor: controller.getStepColor(
+                                    controller.currentStep,
+                                  ),
                                   checkColor: Colors.white,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   onChanged: (val) {
-                                    setState(() {
-                                      q.isSelected = val ?? false;
-                                    });
+                                    controller.toggleQuestion(q, val);
                                   },
                                   controlAffinity:
                                       ListTileControlAffinity.leading,
@@ -264,19 +171,23 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: TextButton.icon(
-                                  onPressed:
-                                      () =>
-                                          setState(() => showMore = !showMore),
+                                  onPressed: controller.toggleShowMore,
                                   icon: Icon(
-                                    showMore
+                                    controller.showMore
                                         ? Icons.expand_less
                                         : Icons.expand_more,
-                                    color: getStepColor(currentStep),
+                                    color: controller.getStepColor(
+                                      controller.currentStep,
+                                    ),
                                   ),
                                   label: Text(
-                                    showMore ? 'Show Less' : 'Show More',
+                                    controller.showMore
+                                        ? 'Show Less'
+                                        : 'Show More',
                                     style: TextStyle(
-                                      color: getStepColor(currentStep),
+                                      color: controller.getStepColor(
+                                        controller.currentStep,
+                                      ),
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -291,7 +202,9 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size.fromHeight(56),
-                              backgroundColor: getStepColor(currentStep),
+                              backgroundColor: controller.getStepColor(
+                                controller.currentStep,
+                              ),
                               foregroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
@@ -300,13 +213,15 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                             ),
                             onPressed: handleNext,
                             icon: Icon(
-                              currentStep < 2
+                              controller.currentStep < 2
                                   ? Icons.arrow_forward_rounded
                                   : Icons.done_rounded,
                               size: 28,
                             ),
                             label: Text(
-                              currentStep < 2 ? 'Next Section' : 'Submit',
+                              controller.currentStep < 2
+                                  ? 'Next Section'
+                                  : 'Submit',
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
