@@ -1,5 +1,9 @@
 import 'package:caress_care/controller/mod_ctrl.dart';
+
 import 'package:caress_care/utils/const/app_colors.dart';
+
+import 'package:caress_care/customs/custom_elevated_icon_btn.dart';
+
 import 'package:flutter/material.dart';
 
 class ChecklistScreen extends StatefulWidget {
@@ -200,35 +204,10 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                         const SizedBox(height: 24),
                         SizedBox(
                           width: double.infinity,
-                          child: ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: const Size.fromHeight(56),
-                              backgroundColor: controller.getStepColor(
-                                controller.currentStep,
-                              ),
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              elevation: 4,
-                            ),
+                          child: CustomElevatedIconBtn(
+                            currentStep: controller.currentStep,
                             onPressed: handleNext,
-                            icon: Icon(
-                              controller.currentStep < 2
-                                  ? Icons.arrow_forward_rounded
-                                  : Icons.done_rounded,
-                              size: 28,
-                            ),
-                            label: Text(
-                              controller.currentStep < 2
-                                  ? 'Next Section'
-                                  : 'Submit',
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
+                            getStepColor: controller.getStepColor,
                           ),
                         ),
                       ],
