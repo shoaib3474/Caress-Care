@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:caress_care/controller/mod_ctrl.dart';
 import 'package:caress_care/customs/custom_elevated_icon_btn.dart';
 import 'package:caress_care/routes/app_routes.dart';

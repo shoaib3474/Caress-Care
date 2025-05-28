@@ -25,7 +25,7 @@ class AppRoutes {
     GetPage(name: mood, page: () => const ModSelectionScreen()),
     GetPage(name: motivation, page: () => const MotivationalScreen()),
     GetPage(name: checklistScreen, page: () => const ChecklistScreen()),
-    GetPage(name: videoRefScreen, page: () => const VideoRefScreen()),
+    GetPage(name: videoRefScreen, page: () => VideoRefScreen()),
     GetPage(name: doctorRefScreen, page: () => DoctorRefScreen()),
   ];
 }
