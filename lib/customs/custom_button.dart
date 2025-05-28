@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +12,14 @@ class CustomButton extends StatelessWidget {
   final TextStyle? textStyle;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onTap,
     this.width = double.infinity,
     this.height = 50,
     this.borderRadius = 12,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
