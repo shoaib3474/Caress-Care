@@ -1,3 +1,4 @@
+import 'package:caress_care/view/check_list_screen.dart';
 import 'package:caress_care/view/mod_sclection_screen.dart';
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
@@ -15,7 +16,7 @@ class AppRoutes {
   static const String register = '/register';
   static const String mood = '/mood';
   static const String motivation = '/motivation';
-  static const String assessment = '/assessment';
+  static const String checklistScreen = '/ChecklistScreen';
   static const String youtubeVideo = '/youtube-video';
   static const String doctorSuggestion = '/doctor-suggestion';
 
@@ -25,7 +26,7 @@ class AppRoutes {
     GetPage(name: register, page: () => const RegisterScreen()),
     GetPage(name: mood, page: () => const ModSelectionScreen()),
     // GetPage(name: motivation, page: () => const MotivationScreen()),
-    // GetPage(name: assessment, page: () => const AssessmentScreen()),
+    GetPage(name: checklistScreen, page: () => const ChecklistScreen()),
     // GetPage(name: youtubeVideo, page: () => const YouTubeVideoScreen()),
     // GetPage(name: doctorSuggestion, page: () => const DoctorSuggestionScreen()),
   ];

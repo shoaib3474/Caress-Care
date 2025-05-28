@@ -1,6 +1,5 @@
 import 'package:caress_care/model/mod_model.dart';
 import 'package:get/get.dart';
-import 'package:get/get.dart';
 
 class MentalHealthController extends GetxController {
   final anxiety = <MentalHealthQuestion>[..._anxietyList].obs;

@@ -1,7 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:caress_care/model/mod_model.dart';
 import 'package:flutter/material.dart';
 
 class ChecklistScreen extends StatefulWidget {
+  const ChecklistScreen({super.key});
+
   @override
   _ChecklistScreenState createState() => _ChecklistScreenState();
 }
