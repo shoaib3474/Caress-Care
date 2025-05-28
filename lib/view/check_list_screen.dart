@@ -3,8 +3,10 @@ import 'package:caress_care/controller/mod_ctrl.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
 
 import 'package:caress_care/customs/custom_elevated_icon_btn.dart';
+import 'package:caress_care/routes/app_routes.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
@@ -51,9 +53,9 @@ class _ChecklistScreenState extends State<ChecklistScreen>
     } else {
       int totalSelected = controller.totalSelected;
       if (totalSelected < 30) {
-        Navigator.pushNamed(context, '/utubeVideoRef');
+        Get.offAllNamed(AppRoutes.videoRefScreen);
       } else {
-        Navigator.pushNamed(context, '/doctorReference');
+        Get.offAllNamed(AppRoutes.doctorRefScreen);
       }
     }
   }

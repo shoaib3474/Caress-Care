@@ -4,14 +4,9 @@ import 'package:caress_care/view/mod_sclection_screen.dart';
 import 'package:caress_care/view/motivational_screen.dart';
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
-import 'package:caress_care/view/screens/utube_video_ref_screen.dart';
+import 'package:caress_care/view/screens/video_ref_screen.dart';
 import 'package:caress_care/view/splash_screen.dart';
 import 'package:get/get.dart';
-// import 'package:caress_care/views/mood/mood_screen.dart';
-// import 'package:caress_care/views/mood/motivation_screen.dart';
-// import 'package:caress_care/views/mood/assessment_screen.dart';
-// import 'package:caress_care/views/mood/youtube_video_screen.dart';
-// import 'package:caress_care/views/mood/doctor_suggestion_screen.dart';
 
 class AppRoutes {
   static const String splash = '/';
@@ -20,8 +15,8 @@ class AppRoutes {
   static const String mood = '/mood';
   static const String motivation = '/motivation';
   static const String checklistScreen = '/ChecklistScreen';
-  static const String youtubeVideo = '/youtube-video';
-  static const String doctorSuggestion = '/doctor-suggestion';
+  static const String videoRefScreen = '/VideoRefScreen';
+  static const String doctorRefScreen = '/DoctorRefScreen';
 
   static final routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -30,7 +25,7 @@ class AppRoutes {
     GetPage(name: mood, page: () => const ModSelectionScreen()),
     GetPage(name: motivation, page: () => const MotivationalScreen()),
     GetPage(name: checklistScreen, page: () => const ChecklistScreen()),
-    GetPage(name: youtubeVideo, page: () => const UtubeVideoRefScreen()),
-    GetPage(name: doctorSuggestion, page: () => const DoctorRefScreen()),
+    GetPage(name: videoRefScreen, page: () => const VideoRefScreen()),
+    GetPage(name: doctorRefScreen, page: () => DoctorRefScreen()),
   ];
 }
