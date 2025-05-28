@@ -1,28 +1,39 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:caress_care/model/mod_model.dart';
-import 'package:flutter/material.dart';
+// import 'package:caress_care/utils/const/app_colors.dart'; // Uncomment if you have AppColors
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
 
   @override
-  _ChecklistScreenState createState() => _ChecklistScreenState();
+  State<ChecklistScreen> createState() => _ChecklistScreenState();
 }
 
-class _ChecklistScreenState extends State<ChecklistScreen> {
-  List<MentalHealthQuestion> anxietyList = [];
-  List<MentalHealthQuestion> stressList = [];
-  List<MentalHealthQuestion> depressionList = [];
+class _ChecklistScreenState extends State<ChecklistScreen>
+    with TickerProviderStateMixin {
+  late List<MentalHealthQuestion> anxietyList;
+  late List<MentalHealthQuestion> stressList;
+  late List<MentalHealthQuestion> depressionList;
 
-  bool showMoreAnxiety = false;
-  bool showMoreStress = false;
-  bool showMoreDepression = false;
+  bool showMore = false;
+  int currentStep = 0;
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
+
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeInOut,
+    );
+    _fadeController.forward();
+
     anxietyList = [
       MentalHealthQuestion(text: 'Increased heart rate (palpitations)'),
       MentalHealthQuestion(text: 'Shortness of breath'),
@@ -31,48 +42,14 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
       MentalHealthQuestion(text: 'Shaking or trembling'),
       MentalHealthQuestion(text: 'Dizziness or light-headedness'),
       MentalHealthQuestion(text: 'Fatigue or low energy'),
-      MentalHealthQuestion(
-        text: 'Stomach issues (nausea, indigestion, or diarrhea)',
-      ),
+      MentalHealthQuestion(text: 'Stomach issues'),
       MentalHealthQuestion(text: 'Headaches'),
       MentalHealthQuestion(text: 'Insomnia or trouble staying asleep'),
       MentalHealthQuestion(text: 'Restlessness or feeling “on edge”'),
-      MentalHealthQuestion(
-        text: 'Excessive worry or fear (often irrational or out of proportion)',
-      ),
-      MentalHealthQuestion(
-        text: 'Difficulty concentrating or mind going blank',
-      ),
-      MentalHealthQuestion(text: 'Irritability'),
-      MentalHealthQuestion(text: 'Sense of impending doom or danger'),
-      MentalHealthQuestion(text: 'Intrusive or racing thoughts'),
-      MentalHealthQuestion(text: 'Avoidance of anxiety-inducing situations'),
-      MentalHealthQuestion(text: 'Panic attacks'),
-      MentalHealthQuestion(text: 'Feeling detached from reality or oneself'),
-      MentalHealthQuestion(text: 'Low self-confidence or self-doubt'),
-    ];
-
-    stressList = [
-      MentalHealthQuestion(text: 'Headaches'),
-      MentalHealthQuestion(text: 'Muscle tension or pain'),
-      MentalHealthQuestion(text: 'Chest pain or rapid heartbeat'),
-      MentalHealthQuestion(text: 'Fatigue'),
-      MentalHealthQuestion(text: 'Stomach problems'),
-      MentalHealthQuestion(text: 'Frequent colds or infections'),
-      MentalHealthQuestion(text: 'Sleep disturbances'),
-      MentalHealthQuestion(text: 'Sweating or cold hands and feet'),
-      MentalHealthQuestion(text: 'Changes in appetite'),
-      MentalHealthQuestion(text: 'Grinding teeth or jaw clenching'),
-      MentalHealthQuestion(text: 'Irritability or short temper'),
-      MentalHealthQuestion(text: 'Feeling overwhelmed'),
-      MentalHealthQuestion(text: 'Anxiety or nervousness'),
-      MentalHealthQuestion(text: 'Depression or sadness'),
-      MentalHealthQuestion(text: 'Restlessness or inability to relax'),
-      MentalHealthQuestion(text: 'Low self-esteem'),
+      MentalHealthQuestion(text: 'Excessive worry or fear'),
       MentalHealthQuestion(text: 'Difficulty concentrating'),
-      MentalHealthQuestion(text: 'Forgetfulness or disorganization'),
-      MentalHealthQuestion(text: 'Lack of motivation'),
-      MentalHealthQuestion(text: 'Mood swings'),
+      MentalHealthQuestion(text: 'Irritability'),
+      MentalHealthQuestion(text: 'Sense of impending doom'),
     ];
 
     depressionList = [
@@ -88,101 +65,264 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
       MentalHealthQuestion(text: 'Thoughts of death'),
       MentalHealthQuestion(text: 'Fatigue or low energy'),
       MentalHealthQuestion(text: 'Changes in appetite'),
+    ];
+
+    stressList = [
+      MentalHealthQuestion(text: 'Headaches'),
+      MentalHealthQuestion(text: 'Muscle tension or pain'),
+      MentalHealthQuestion(text: 'Chest pain or rapid heartbeat'),
+      MentalHealthQuestion(text: 'Fatigue'),
+      MentalHealthQuestion(text: 'Stomach problems'),
+      MentalHealthQuestion(text: 'Frequent colds or infections'),
       MentalHealthQuestion(text: 'Sleep disturbances'),
-      MentalHealthQuestion(text: 'Slowed movements or speech'),
-      MentalHealthQuestion(text: 'Unexplained aches and pains'),
-      MentalHealthQuestion(text: 'Withdrawal from social activities'),
-      MentalHealthQuestion(text: 'Neglecting responsibilities'),
-      MentalHealthQuestion(text: 'Reduced productivity'),
-      MentalHealthQuestion(text: 'Substance use'),
-      MentalHealthQuestion(text: 'Irritability or agitation'),
+      MentalHealthQuestion(text: 'Sweating or cold hands and feet'),
+      MentalHealthQuestion(text: 'Changes in appetite'),
+      MentalHealthQuestion(text: 'Grinding teeth or jaw clenching'),
+      MentalHealthQuestion(text: 'Irritability or short temper'),
+      MentalHealthQuestion(text: 'Feeling overwhelmed'),
     ];
   }
 
-  void handleSubmit() {
-    int totalSelected =
-        [
-          ...anxietyList,
-          ...stressList,
-          ...depressionList,
-        ].where((q) => q.isSelected).length;
+  @override
+  void dispose() {
+    _fadeController.dispose();
+    super.dispose();
+  }
 
-    if (totalSelected < 30) {
-      Navigator.pushNamed(context, '/utubeVideoRef');
+  void handleNext() async {
+    if (currentStep < 2) {
+      await _fadeController.reverse();
+      setState(() {
+        showMore = false;
+        currentStep++;
+      });
+      _fadeController.forward();
     } else {
-      Navigator.pushNamed(context, '/doctorReference');
+      int totalSelected =
+          [
+            ...anxietyList,
+            ...stressList,
+            ...depressionList,
+          ].where((q) => q.isSelected).length;
+
+      if (totalSelected < 30) {
+        Navigator.pushNamed(context, '/utubeVideoRef');
+      } else {
+        Navigator.pushNamed(context, '/doctorReference');
+      }
     }
   }
 
-  Widget buildCategory(
-    String title,
-    List<MentalHealthQuestion> questions,
-    bool showMore,
-    Function toggleShowMore,
-  ) {
-    final displayList = showMore ? questions : questions.take(3).toList();
+  List<MentalHealthQuestion> getCurrentList() {
+    switch (currentStep) {
+      case 0:
+        return anxietyList;
+      case 1:
+        return depressionList;
+      case 2:
+        return stressList;
+      default:
+        return [];
+    }
+  }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 10),
-        ...displayList.map(
-          (q) => CheckboxListTile(
-            title: Text(q.text),
-            value: q.isSelected,
-            onChanged: (val) {
-              setState(() {
-                q.isSelected = val ?? false;
-              });
-            },
-          ),
-        ),
-        TextButton(
-          onPressed: () => setState(() => toggleShowMore()),
-          child: Text(showMore ? 'Show Less' : 'Show More'),
-        ),
-        const Divider(),
-      ],
-    );
+  String getCurrentTitle() {
+    switch (currentStep) {
+      case 0:
+        return 'Anxiety Symptoms';
+      case 1:
+        return 'Depression Symptoms';
+      case 2:
+        return 'Stress Symptoms';
+      default:
+        return '';
+    }
+  }
+
+  Color getStepColor(int step) {
+    // Use your AppColors if you have, else fallback
+    const List<Color> stepColors = [
+      Color(0xFF7B2FF7),
+      Color(0xFF9F44D3),
+      Color(0xFFBF5AE0),
+    ];
+    return stepColors[step];
   }
 
   @override
   Widget build(BuildContext context) {
+    final questions = getCurrentList();
+    final displayList = showMore ? questions : questions.take(5).toList();
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Mental Health Checklist')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            buildCategory(
-              'Anxiety',
-              anxietyList,
-              showMoreAnxiety,
-              () => showMoreAnxiety = !showMoreAnxiety,
+      backgroundColor: const Color(0xFFF9F9F9),
+      appBar: AppBar(
+        title: const Text('Mental Health Checklist'),
+        elevation: 0,
+        backgroundColor: getStepColor(currentStep),
+        foregroundColor: Colors.white,
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          // Animated Progress Bar
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Row(
+              children: List.generate(
+                3,
+                (i) => Expanded(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    margin: EdgeInsets.only(right: i < 2 ? 8 : 0),
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color:
+                          i <= currentStep
+                              ? getStepColor(i)
+                              : Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
             ),
-            buildCategory(
-              'Stress',
-              stressList,
-              showMoreStress,
-              () => showMoreStress = !showMoreStress,
+          ),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder:
+                  (child, animation) => FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0.2, 0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  ),
+              child: FadeTransition(
+                key: ValueKey(currentStep),
+                opacity: _fadeAnimation,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.06),
+                                blurRadius: 16,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                getCurrentTitle(),
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: getStepColor(currentStep),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ...displayList.map(
+                                (q) => CheckboxListTile(
+                                  title: Text(
+                                    q.text,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                  value: q.isSelected,
+                                  activeColor: getStepColor(currentStep),
+                                  checkColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  onChanged: (val) {
+                                    setState(() {
+                                      q.isSelected = val ?? false;
+                                    });
+                                  },
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  contentPadding: EdgeInsets.zero,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton.icon(
+                                  onPressed:
+                                      () =>
+                                          setState(() => showMore = !showMore),
+                                  icon: Icon(
+                                    showMore
+                                        ? Icons.expand_less
+                                        : Icons.expand_more,
+                                    color: getStepColor(currentStep),
+                                  ),
+                                  label: Text(
+                                    showMore ? 'Show Less' : 'Show More',
+                                    style: TextStyle(
+                                      color: getStepColor(currentStep),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(56),
+                              backgroundColor: getStepColor(currentStep),
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              elevation: 4,
+                            ),
+                            onPressed: handleNext,
+                            icon: Icon(
+                              currentStep < 2
+                                  ? Icons.arrow_forward_rounded
+                                  : Icons.done_rounded,
+                              size: 28,
+                            ),
+                            label: Text(
+                              currentStep < 2 ? 'Next Section' : 'Submit',
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
-            buildCategory(
-              'Depression',
-              depressionList,
-              showMoreDepression,
-              () => showMoreDepression = !showMoreDepression,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: handleSubmit,
-              child: const Text('Submit'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
