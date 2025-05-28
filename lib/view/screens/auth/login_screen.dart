@@ -3,6 +3,7 @@ import 'package:caress_care/customs/custom_text_feild.dart';
 import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -67,11 +68,44 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
+              SizedBox(height: 15),
               CustomButton(
                 text: "Login",
                 onTap: () {
-                  Get.offAllNamed(AppRoutes.register);
+                  Get.offAllNamed(AppRoutes.mood);
                 },
+              ),
+
+              SizedBox(height: 30),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      text: 'Don\'t have an account?',
+                      children: [
+                        TextSpan(
+                          text: 'Register',
+                          recognizer:
+                              TapGestureRecognizer()
+                                ..onTap = () {
+                                  Get.toNamed(AppRoutes.register);
+                                },
+                          style: TextStyle(
+                            color: Colors.lightBlueAccent,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ],
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

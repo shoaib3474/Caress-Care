@@ -1,3 +1,4 @@
+import 'package:caress_care/view/mod_sclection_screen.dart';
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
 import 'package:caress_care/view/splash_screen.dart';
@@ -22,7 +23,7 @@ class AppRoutes {
     GetPage(name: splash, page: () => const SplashScreen()),
     GetPage(name: login, page: () => const LoginScreen()),
     GetPage(name: register, page: () => const RegisterScreen()),
-    // GetPage(name: mood, page: () => const MoodScreen()),
+    GetPage(name: mood, page: () => const ModSelectionScreen()),
     // GetPage(name: motivation, page: () => const MotivationScreen()),
     // GetPage(name: assessment, page: () => const AssessmentScreen()),
     // GetPage(name: youtubeVideo, page: () => const YouTubeVideoScreen()),

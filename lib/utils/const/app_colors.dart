@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Gradient Colors
-  static const Color gradientTop = Color(0xFF7B2FF7); // Top purple
-  static const Color gradientMid = Color(0xFF9F44D3); // Mid purple
-  static const Color gradientBottom = Color(0xFFBF5AE0); // Bottom purple
+  // Soft Pastel Theme based on Mental Health Checklist image
+  static const Color pastelYellow = Color(0xFFF9E7B5); // Used for tips 1 & 4
+  static const Color pastelGreen = Color(0xFFD9E6DA); // Used for tips 2 & 7
+  static const Color pastelPeach = Color(0xFFF4D5C7); // Used for tips 3 & 5
+  static const Color pastelLavender = Color(0xFFEBD9ED); // Tip 8
+  static const Color pastelBeige = Color(0xFFF3EDE2); // Center circle
+  static const Color pastelPink = Color(0xFFF7E3DC); // Tip 6
 
-  // Gradient List for LinearGradient
+  // Gradient (you can blend some of these)
   static const List<Color> mainGradient = [
-    gradientTop,
-    gradientMid,
-    gradientBottom,
+    pastelYellow,
+    pastelPeach,
+    pastelLavender,
   ];
 
-  // Additional Common Colors
-  static const Color background = Color(0xFFF9F9F9);
+  // Background and text
+  static const Color background = pastelBeige;
   static const Color textPrimary = Colors.black87;
   static const Color textSecondary = Colors.black54;
   static const Color white = Colors.white;
