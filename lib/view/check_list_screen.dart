@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:flutter/material.dart';
 import 'package:caress_care/model/mod_model.dart';
-import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChecklistScreen extends StatefulWidget {
@@ -108,77 +108,10 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
         ].where((q) => q.isSelected).length;
 
     if (totalSelected < 30) {
-      Navigator.pushNamed(context, '/motivational');
+      Navigator.pushNamed(context, '/utubeVideoRef');
     } else {
       Navigator.pushNamed(context, '/doctorReference');
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mental Health Checklist'),
-        backgroundColor: AppColors.gradientTop,
-        foregroundColor: AppColors.white,
-        elevation: 0,
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.mainGradient,
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              buildCategory(
-                'Anxiety',
-                anxietyList,
-                showMoreAnxiety,
-                () => showMoreAnxiety = !showMoreAnxiety,
-              ),
-              buildCategory(
-                'Stress',
-                stressList,
-                showMoreStress,
-                () => showMoreStress = !showMoreStress,
-              ),
-              buildCategory(
-                'Depression',
-                depressionList,
-                showMoreDepression,
-                () => showMoreDepression = !showMoreDepression,
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: AppColors.gradientMid,
-                    foregroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 4,
-                    shadowColor: AppColors.shadow,
-                  ),
-                  onPressed: handleSubmit,
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   Widget buildCategory(
@@ -189,58 +122,65 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
   ) {
     final displayList = showMore ? questions : questions.take(3).toList();
 
-    return Card(
-      color: AppColors.white,
-      elevation: 3,
-      shadowColor: AppColors.shadow,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-      child: Padding(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        ...displayList.map(
+          (q) => CheckboxListTile(
+            title: Text(q.text),
+            value: q.isSelected,
+            onChanged: (val) {
+              setState(() {
+                q.isSelected = val ?? false;
+              });
+            },
+          ),
+        ),
+        TextButton(
+          onPressed: () => setState(() => toggleShowMore()),
+          child: Text(showMore ? 'Show Less' : 'Show More'),
+        ),
+        const Divider(),
+      ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Mental Health Checklist')),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: AppColors.gradientTop,
-              ),
+            buildCategory(
+              'Anxiety',
+              anxietyList,
+              showMoreAnxiety,
+              () => showMoreAnxiety = !showMoreAnxiety,
             ),
-            const SizedBox(height: 10),
-            ...displayList.map(
-              (q) => CheckboxListTile(
-                title: Text(
-                  q.text,
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 16,
-                  ),
-                ),
-                value: q.isSelected,
-                activeColor: AppColors.gradientMid,
-                checkColor: AppColors.white,
-                onChanged: (val) {
-                  setState(() {
-                    q.isSelected = val ?? false;
-                  });
-                },
-                controlAffinity: ListTileControlAffinity.leading,
-                contentPadding: EdgeInsets.zero,
-              ),
+            buildCategory(
+              'Stress',
+              stressList,
+              showMoreStress,
+              () => showMoreStress = !showMoreStress,
             ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () => setState(() => toggleShowMore()),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.gradientMid,
-                ),
-                child: Text(showMore ? 'Show Less' : 'Show More'),
-              ),
+            buildCategory(
+              'Depression',
+              depressionList,
+              showMoreDepression,
+              () => showMoreDepression = !showMoreDepression,
             ),
-            const Divider(),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: handleSubmit,
+              child: const Text('Submit'),
+            ),
           ],
         ),
       ),
