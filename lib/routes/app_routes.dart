@@ -1,6 +1,6 @@
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
-import 'package:caress_care/view/screens/splash_screen.dart';
+import 'package:caress_care/view/splash_screen.dart';
 import 'package:get/get.dart';
 // import 'package:caress_care/views/mood/mood_screen.dart';
 // import 'package:caress_care/views/mood/motivation_screen.dart';
