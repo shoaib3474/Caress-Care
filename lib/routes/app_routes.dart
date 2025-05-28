@@ -7,11 +7,6 @@ import 'package:caress_care/view/screens/auth/register_screen.dart';
 import 'package:caress_care/view/screens/video_ref_screen.dart';
 import 'package:caress_care/view/splash_screen.dart';
 import 'package:get/get.dart';
-// import 'package:caress_care/views/mood/mood_screen.dart';
-// import 'package:caress_care/views/mood/motivation_screen.dart';
-// import 'package:caress_care/views/mood/assessment_screen.dart';
-// import 'package:caress_care/views/mood/youtube_video_screen.dart';
-// import 'package:caress_care/views/mood/doctor_suggestion_screen.dart';
 
 class AppRoutes {
   static const String splash = '/';
