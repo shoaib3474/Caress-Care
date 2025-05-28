@@ -18,7 +18,7 @@ class AppColors {
   static const Color white = Colors.white; // Pure White
   static const Color shadow = Color(0x29000000);
 
-  static const Color Black = Color(0xFF000000);
+  static const black = Color(0xFF000000);
   static const Color grey = Color(0xFF808080); // Light Black Shadow (opacity)
 
   // Text Colors

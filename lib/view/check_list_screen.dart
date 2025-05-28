@@ -132,7 +132,7 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                             borderRadius: BorderRadius.circular(20),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.Black,
+                                color: AppColors.black,
                                 blurRadius: 16,
                                 offset: const Offset(0, 6),
                               ),
