@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:caress_care/model/mod_model.dart';
 import 'package:flutter/material.dart';
+import 'package:caress_care/model/mod_model.dart';
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
@@ -107,7 +107,7 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
         ].where((q) => q.isSelected).length;
 
     if (totalSelected < 30) {
-      Navigator.pushNamed(context, '/motivational');
+      Navigator.pushNamed(context, '/utubeVideoRef');
     } else {
       Navigator.pushNamed(context, '/doctorReference');
     }
@@ -117,70 +117,109 @@ class _ChecklistScreenState extends State<ChecklistScreen> {
     String title,
     List<MentalHealthQuestion> questions,
     bool showMore,
-    Function toggleShowMore,
+    VoidCallback toggleShowMore,
   ) {
     final displayList = showMore ? questions : questions.take(3).toList();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.deepPurple,
+              ),
+            ),
+            const SizedBox(height: 10),
+            ...displayList.map(
+              (q) => CheckboxListTile(
+                title: Text(q.text),
+                value: q.isSelected,
+                onChanged: (val) {
+                  setState(() => q.isSelected = val ?? false);
+                },
+                activeColor: Colors.deepPurple,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: toggleShowMore,
+                child: Text(
+                  showMore ? 'Show Less' : 'Show More',
+                  style: const TextStyle(color: Colors.deepPurple),
+                ),
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 10),
-        ...displayList.map(
-          (q) => CheckboxListTile(
-            title: Text(q.text),
-            value: q.isSelected,
-            onChanged: (val) {
-              setState(() {
-                q.isSelected = val ?? false;
-              });
-            },
-          ),
-        ),
-        TextButton(
-          onPressed: () => setState(() => toggleShowMore()),
-          child: Text(showMore ? 'Show Less' : 'Show More'),
-        ),
-        const Divider(),
-      ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mental Health Checklist')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            buildCategory(
-              'Anxiety',
-              anxietyList,
-              showMoreAnxiety,
-              () => showMoreAnxiety = !showMoreAnxiety,
-            ),
-            buildCategory(
-              'Stress',
-              stressList,
-              showMoreStress,
-              () => showMoreStress = !showMoreStress,
-            ),
-            buildCategory(
-              'Depression',
-              depressionList,
-              showMoreDepression,
-              () => showMoreDepression = !showMoreDepression,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: handleSubmit,
-              child: const Text('Submit'),
-            ),
-          ],
+      appBar: AppBar(
+        title: const Text('Mental Health Checklist'),
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
+      ),
+      body: Container(
+        color: Colors.grey[100],
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              buildCategory(
+                'Anxiety',
+                anxietyList,
+                showMoreAnxiety,
+                () => setState(() => showMoreAnxiety = !showMoreAnxiety),
+              ),
+              buildCategory(
+                'Stress',
+                stressList,
+                showMoreStress,
+                () => setState(() => showMoreStress = !showMoreStress),
+              ),
+              buildCategory(
+                'Depression',
+                depressionList,
+                showMoreDepression,
+                () => setState(() => showMoreDepression = !showMoreDepression),
+              ),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: handleSubmit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurple,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: const Text(
+                    'Submit',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

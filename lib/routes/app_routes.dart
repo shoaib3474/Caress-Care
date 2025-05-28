@@ -1,8 +1,10 @@
 import 'package:caress_care/view/check_list_screen.dart';
+import 'package:caress_care/view/doctor_ref_screen.dart';
 import 'package:caress_care/view/mod_sclection_screen.dart';
 import 'package:caress_care/view/motivational_screen.dart';
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
+import 'package:caress_care/view/screens/utube_video_ref_screen.dart';
 import 'package:caress_care/view/splash_screen.dart';
 import 'package:get/get.dart';
 // import 'package:caress_care/views/mood/mood_screen.dart';
@@ -28,7 +30,7 @@ class AppRoutes {
     GetPage(name: mood, page: () => const ModSelectionScreen()),
     GetPage(name: motivation, page: () => const MotivationalScreen()),
     GetPage(name: checklistScreen, page: () => const ChecklistScreen()),
-    // GetPage(name: youtubeVideo, page: () => const YouTubeVideoScreen()),
-    // GetPage(name: doctorSuggestion, page: () => const DoctorSuggestionScreen()),
+    GetPage(name: youtubeVideo, page: () => const UtubeVideoRefScreen()),
+    GetPage(name: doctorSuggestion, page: () => const DoctorRefScreen()),
   ];
 }
