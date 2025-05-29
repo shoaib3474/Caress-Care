@@ -1,5 +1,6 @@
 import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -53,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
-                color: Colors.white,
+                color: AppColors.white,
               ),
             ),
             const SizedBox(height: 12),
@@ -67,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(
                   fontFamily: 'Poppins',
                   fontSize: 14,
-                  color: Colors.white70,
+                  color: AppColors.white,
                 ),
               ),
             ),

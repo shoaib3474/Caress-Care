@@ -1,226 +1,227 @@
-// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: deprecated_member_use
+
+import 'package:caress_care/controller/mod_ctrl.dart';
+
+import 'package:caress_care/utils/const/app_colors.dart';
+
+import 'package:caress_care/customs/custom_elevated_icon_btn.dart';
+import 'package:caress_care/routes/app_routes.dart';
 
 import 'package:flutter/material.dart';
-import 'package:caress_care/model/mod_model.dart';
+import 'package:get/get.dart';
 
 class ChecklistScreen extends StatefulWidget {
   const ChecklistScreen({super.key});
 
   @override
-  _ChecklistScreenState createState() => _ChecklistScreenState();
+  State<ChecklistScreen> createState() => _ChecklistScreenState();
 }
 
-class _ChecklistScreenState extends State<ChecklistScreen> {
-  List<MentalHealthQuestion> anxietyList = [];
-  List<MentalHealthQuestion> stressList = [];
-  List<MentalHealthQuestion> depressionList = [];
-
-  bool showMoreAnxiety = false;
-  bool showMoreStress = false;
-  bool showMoreDepression = false;
+class _ChecklistScreenState extends State<ChecklistScreen>
+    with TickerProviderStateMixin {
+  late final ChecklistController controller;
+  late AnimationController _fadeController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    anxietyList = [
-      MentalHealthQuestion(text: 'Increased heart rate (palpitations)'),
-      MentalHealthQuestion(text: 'Shortness of breath'),
-      MentalHealthQuestion(text: 'Muscle tension or aches'),
-      MentalHealthQuestion(text: 'Sweating'),
-      MentalHealthQuestion(text: 'Shaking or trembling'),
-      MentalHealthQuestion(text: 'Dizziness or light-headedness'),
-      MentalHealthQuestion(text: 'Fatigue or low energy'),
-      MentalHealthQuestion(
-        text: 'Stomach issues (nausea, indigestion, or diarrhea)',
-      ),
-      MentalHealthQuestion(text: 'Headaches'),
-      MentalHealthQuestion(text: 'Insomnia or trouble staying asleep'),
-      MentalHealthQuestion(text: 'Restlessness or feeling “on edge”'),
-      MentalHealthQuestion(
-        text: 'Excessive worry or fear (often irrational or out of proportion)',
-      ),
-      MentalHealthQuestion(
-        text: 'Difficulty concentrating or mind going blank',
-      ),
-      MentalHealthQuestion(text: 'Irritability'),
-      MentalHealthQuestion(text: 'Sense of impending doom or danger'),
-      MentalHealthQuestion(text: 'Intrusive or racing thoughts'),
-      MentalHealthQuestion(text: 'Avoidance of anxiety-inducing situations'),
-      MentalHealthQuestion(text: 'Panic attacks'),
-      MentalHealthQuestion(text: 'Feeling detached from reality or oneself'),
-      MentalHealthQuestion(text: 'Low self-confidence or self-doubt'),
-    ];
+    controller = ChecklistController();
+    controller.addListener(() => setState(() {}));
 
-    stressList = [
-      MentalHealthQuestion(text: 'Headaches'),
-      MentalHealthQuestion(text: 'Muscle tension or pain'),
-      MentalHealthQuestion(text: 'Chest pain or rapid heartbeat'),
-      MentalHealthQuestion(text: 'Fatigue'),
-      MentalHealthQuestion(text: 'Stomach problems'),
-      MentalHealthQuestion(text: 'Frequent colds or infections'),
-      MentalHealthQuestion(text: 'Sleep disturbances'),
-      MentalHealthQuestion(text: 'Sweating or cold hands and feet'),
-      MentalHealthQuestion(text: 'Changes in appetite'),
-      MentalHealthQuestion(text: 'Grinding teeth or jaw clenching'),
-      MentalHealthQuestion(text: 'Irritability or short temper'),
-      MentalHealthQuestion(text: 'Feeling overwhelmed'),
-      MentalHealthQuestion(text: 'Anxiety or nervousness'),
-      MentalHealthQuestion(text: 'Depression or sadness'),
-      MentalHealthQuestion(text: 'Restlessness or inability to relax'),
-      MentalHealthQuestion(text: 'Low self-esteem'),
-      MentalHealthQuestion(text: 'Difficulty concentrating'),
-      MentalHealthQuestion(text: 'Forgetfulness or disorganization'),
-      MentalHealthQuestion(text: 'Lack of motivation'),
-      MentalHealthQuestion(text: 'Mood swings'),
-    ];
-
-    depressionList = [
-      MentalHealthQuestion(text: 'Persistent sadness or low mood'),
-      MentalHealthQuestion(text: 'Loss of interest in activities'),
-      MentalHealthQuestion(text: 'Feelings of hopelessness'),
-      MentalHealthQuestion(text: 'Worthlessness or guilt'),
-      MentalHealthQuestion(text: 'Crying spells'),
-      MentalHealthQuestion(text: 'Difficulty concentrating'),
-      MentalHealthQuestion(text: 'Indecisiveness'),
-      MentalHealthQuestion(text: 'Negative thoughts'),
-      MentalHealthQuestion(text: 'Memory problems'),
-      MentalHealthQuestion(text: 'Thoughts of death'),
-      MentalHealthQuestion(text: 'Fatigue or low energy'),
-      MentalHealthQuestion(text: 'Changes in appetite'),
-      MentalHealthQuestion(text: 'Sleep disturbances'),
-      MentalHealthQuestion(text: 'Slowed movements or speech'),
-      MentalHealthQuestion(text: 'Unexplained aches and pains'),
-      MentalHealthQuestion(text: 'Withdrawal from social activities'),
-      MentalHealthQuestion(text: 'Neglecting responsibilities'),
-      MentalHealthQuestion(text: 'Reduced productivity'),
-      MentalHealthQuestion(text: 'Substance use'),
-      MentalHealthQuestion(text: 'Irritability or agitation'),
-    ];
-  }
-
-  void handleSubmit() {
-    int totalSelected =
-        [
-          ...anxietyList,
-          ...stressList,
-          ...depressionList,
-        ].where((q) => q.isSelected).length;
-
-    if (totalSelected < 30) {
-      Navigator.pushNamed(context, '/utubeVideoRef');
-    } else {
-      Navigator.pushNamed(context, '/doctorReference');
-    }
-  }
-
-  Widget buildCategory(
-    String title,
-    List<MentalHealthQuestion> questions,
-    bool showMore,
-    VoidCallback toggleShowMore,
-  ) {
-    final displayList = showMore ? questions : questions.take(3).toList();
-
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.deepPurple,
-              ),
-            ),
-            const SizedBox(height: 10),
-            ...displayList.map(
-              (q) => CheckboxListTile(
-                title: Text(q.text),
-                value: q.isSelected,
-                onChanged: (val) {
-                  setState(() => q.isSelected = val ?? false);
-                },
-                activeColor: Colors.deepPurple,
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: toggleShowMore,
-                child: Text(
-                  showMore ? 'Show Less' : 'Show More',
-                  style: const TextStyle(color: Colors.deepPurple),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
     );
+    _fadeAnimation = CurvedAnimation(
+      parent: _fadeController,
+      curve: Curves.easeInOut,
+    );
+    _fadeController.forward();
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(() {});
+    _fadeController.dispose();
+    super.dispose();
+  }
+
+  void handleNext() async {
+    if (controller.currentStep < 2) {
+      await _fadeController.reverse();
+      controller.nextStep(() {});
+      _fadeController.forward();
+    } else {
+      int totalSelected = controller.totalSelected;
+      if (totalSelected < 30) {
+        Get.offAllNamed(AppRoutes.videoRefScreen);
+      } else {
+        Get.offAllNamed(AppRoutes.doctorRefScreen);
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final questions = controller.getCurrentList();
+    final displayList =
+        controller.showMore ? questions : questions.take(5).toList();
+
     return Scaffold(
+      backgroundColor: const Color(0xFFF9F9F9),
       appBar: AppBar(
         title: const Text('Mental Health Checklist'),
-        backgroundColor: Colors.deepPurple,
+        elevation: 0,
+        backgroundColor: controller.getStepColor(controller.currentStep),
         foregroundColor: Colors.white,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
-        ),
+        centerTitle: true,
       ),
-      body: Container(
-        color: Colors.grey[100],
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              buildCategory(
-                'Anxiety',
-                anxietyList,
-                showMoreAnxiety,
-                () => setState(() => showMoreAnxiety = !showMoreAnxiety),
-              ),
-              buildCategory(
-                'Stress',
-                stressList,
-                showMoreStress,
-                () => setState(() => showMoreStress = !showMoreStress),
-              ),
-              buildCategory(
-                'Depression',
-                depressionList,
-                showMoreDepression,
-                () => setState(() => showMoreDepression = !showMoreDepression),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: handleSubmit,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepPurple,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+      body: Column(
+        children: [
+          // Animated Progress Bar
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Row(
+              children: List.generate(
+                3,
+                (i) => Expanded(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    margin: EdgeInsets.only(right: i < 2 ? 8 : 0),
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color:
+                          i <= controller.currentStep
+                              ? controller.getStepColor(i)
+                              : AppColors.gradientTop,
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ),
-                  child: const Text(
-                    'Submit',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder:
+                  (child, animation) => FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0.2, 0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  ),
+              child: FadeTransition(
+                key: ValueKey(controller.currentStep),
+                opacity: _fadeAnimation,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: AppColors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.black,
+                                blurRadius: 16,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.getCurrentTitle(),
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: controller.getStepColor(
+                                    controller.currentStep,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              ...displayList.map(
+                                (q) => CheckboxListTile(
+                                  title: Text(
+                                    q.text,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      color: AppColors.textPrimary,
+                                    ),
+                                  ),
+                                  value: q.isSelected,
+                                  activeColor: controller.getStepColor(
+                                    controller.currentStep,
+                                  ),
+                                  checkColor: AppColors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  onChanged: (val) {
+                                    controller.toggleQuestion(q, val);
+                                  },
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  contentPadding: EdgeInsets.zero,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: TextButton.icon(
+                                  onPressed: controller.toggleShowMore,
+                                  icon: Icon(
+                                    controller.showMore
+                                        ? Icons.expand_less
+                                        : Icons.expand_more,
+                                    color: controller.getStepColor(
+                                      controller.currentStep,
+                                    ),
+                                  ),
+                                  label: Text(
+                                    controller.showMore
+                                        ? 'Show Less'
+                                        : 'Show More',
+                                    style: TextStyle(
+                                      color: controller.getStepColor(
+                                        controller.currentStep,
+                                      ),
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: double.infinity,
+                          child: CustomElevatedIconBtn(
+                            currentStep: controller.currentStep,
+                            onPressed: handleNext,
+                            getStepColor: controller.getStepColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
