@@ -63,7 +63,7 @@ class VideoRefScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 const Text(
-                  'Tap below to watch a randomly picked motivational video on YouTube.',
+                  'Take a moment to pause and regain your strength. This video might lift your spirits and bring clarity to your thoughts.',
                   style: TextStyle(fontSize: 16, color: Colors.white70),
                   textAlign: TextAlign.center,
                 ),
