@@ -2,6 +2,7 @@ import 'package:caress_care/customs/custom_button.dart';
 import 'package:caress_care/customs/custom_text_feild.dart';
 import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
+import 'package:caress_care/services/auth_service.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/gestures.dart';
@@ -70,7 +71,10 @@ class _LoginScreenState extends State<LoginScreen> {
               CustomButton(
                 text: "Login",
                 onTap: () {
-                  Get.offAllNamed(AppRoutes.mood);
+                  AuthService.loginUser(
+                    email: emailCtrl.text.trim(),
+                    password: pwCtrl.text.trim(),
+                  );
                 },
               ),
 
