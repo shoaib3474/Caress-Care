@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'app_colors.dart'; // Ensure this exists and includes AppColors.white
 
 class AppTextStyles {
