@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Caress Care',
-      initialRoute: AppRoutes.checklistScreen,
+      initialRoute: AppRoutes.videoRefScreen,
       getPages: AppRoutes.routes,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),
     );
