@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Caress Care',
+
+      title: 'Calm Zone',
+
       initialRoute: AppRoutes.splash,
       getPages: AppRoutes.routes,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),

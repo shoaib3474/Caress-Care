@@ -3,6 +3,7 @@
 import 'dart:ui';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -57,27 +58,21 @@ class GlassCard extends StatelessWidget {
               Text(
                 'What\'s your mood today?',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                  color: Colors.white,
-                  letterSpacing: 0.5,
-                ),
+                style: AppTextStyles.body16.copyWith(fontSize: 18),
               ),
               const SizedBox(height: 20),
               MoodOption(
                 mood: 'Happy',
                 emoji: '😊',
                 onTap: () {
-                  Get.offNamed(AppRoutes.motivation);
+                  Get.to(AppRoutes.motivation);
                 },
               ),
               const SizedBox(height: 10),
               MoodOption(
                 mood: 'Sad',
                 emoji: '😞',
-                onTap: () => Get.offAllNamed(AppRoutes.checklistScreen),
+                onTap: () => Get.to(AppRoutes.checklistScreen),
               ),
             ],
           ),
@@ -131,7 +126,7 @@ class _MoodOptionState extends State<MoodOption> {
             fontSize: 16,
           ),
         ),
-        trailing: const Icon(Icons.chevron_right, color: AppColors.lightgrey),
+        trailing: const Icon(Icons.chevron_right, color: Colors.white70),
       ),
     );
   }

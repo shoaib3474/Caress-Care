@@ -4,6 +4,7 @@ import 'package:caress_care/customs/custom_text_feild.dart';
 import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,12 +47,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const Text(
                   'Welcome to Caress Care!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                    color: Colors.white,
-                  ),
+                  style: AppTextStyles.heading20White,
                 ),
                 const SizedBox(height: 20),
 
@@ -160,12 +156,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text.rich(
                   TextSpan(
                     text: 'Already have an account? ',
-                    style: const TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
+                    style: AppTextStyles.body16,
                     children: [
                       TextSpan(
                         text: 'Sign in',
@@ -174,9 +165,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ..onTap = () {
                                 Get.toNamed(AppRoutes.login);
                               },
-                        style: const TextStyle(
-                          color: Colors.lightBlueAccent,
-                          fontSize: 15,
+                        style: AppTextStyles.body16.copyWith(
+                          color: Colors.blueGrey,
                         ),
                       ),
                     ],

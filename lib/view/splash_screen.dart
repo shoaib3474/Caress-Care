@@ -1,6 +1,7 @@
 import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -15,8 +16,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
-      Get.offAllNamed(AppRoutes.login);
+    Future.delayed(const Duration(milliseconds: 300), () {
+      Get.offNamed(AppRoutes.login);
     });
   }
 
@@ -44,14 +45,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
             // Main heading
             const Text(
-              'Welcome to Caress Care',
+              'Welcome to Calm Zone',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-                fontSize: 20,
-                color: AppColors.white,
-              ),
+              style: AppTextStyles.heading20White,
             ),
             const SizedBox(height: 12),
 
@@ -61,11 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 'Track your health, stay fit, and achieve wellness goals effortlessly.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontSize: 14,
-                  color: AppColors.white,
-                ),
+                style: AppTextStyles.body14,
               ),
             ),
           ],
