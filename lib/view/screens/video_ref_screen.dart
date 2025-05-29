@@ -69,7 +69,9 @@ class VideoRefScreen extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   'Take a moment to pause and regain your strength. This video might lift your spirits and bring clarity to your thoughts.',
-                  style: AppTextStyles.body16.copyWith(color: AppColors.grey),
+                  style: AppTextStyles.body16.copyWith(
+                    color: AppColors.lightgrey,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
