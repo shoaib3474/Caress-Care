@@ -6,6 +6,7 @@ import 'package:caress_care/utils/const/app_colors.dart';
 
 import 'package:caress_care/customs/custom_elevated_icon_btn.dart';
 import 'package:caress_care/routes/app_routes.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -143,9 +144,8 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                             children: [
                               Text(
                                 controller.getCurrentTitle(),
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold,
+
+                                style: AppTextStyles.body16.copyWith(
                                   color: controller.getStepColor(
                                     controller.currentStep,
                                   ),
@@ -156,9 +156,8 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                                 (q) => CheckboxListTile(
                                   title: Text(
                                     q.text,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      color: AppColors.textPrimary,
+                                    style: AppTextStyles.body16.copyWith(
+                                      color: AppColors.black,
                                     ),
                                   ),
                                   value: q.isSelected,
@@ -193,11 +192,10 @@ class _ChecklistScreenState extends State<ChecklistScreen>
                                     controller.showMore
                                         ? 'Show Less'
                                         : 'Show More',
-                                    style: TextStyle(
+                                    style: AppTextStyles.body16.copyWith(
                                       color: controller.getStepColor(
                                         controller.currentStep,
                                       ),
-                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),

@@ -3,6 +3,7 @@ import 'package:caress_care/customs/custom_text_feild.dart';
 import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,12 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text(
                 'Welcome Back!',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
+                style: AppTextStyles.heading20White,
               ),
               SizedBox(height: 10),
               CustomTextField(
@@ -62,7 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextButton(
                     child: Text(
                       'Forget Password',
-                      style: TextStyle(color: Colors.lightBlueAccent),
+                      style: AppTextStyles.body16.copyWith(
+                        color: Colors.blueGrey,
+                      ),
                     ),
                     onPressed: () {},
                   ),
@@ -91,18 +89,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ..onTap = () {
                                   Get.toNamed(AppRoutes.register);
                                 },
-                          style: TextStyle(
-                            color: Colors.lightBlueAccent,
-                            fontSize: 15,
+                          style: AppTextStyles.body16.copyWith(
+                            color: Colors.blueGrey,
                           ),
                         ),
                       ],
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: Colors.white,
-                      ),
+                      style: AppTextStyles.heading20White,
                     ),
                   ),
                 ],

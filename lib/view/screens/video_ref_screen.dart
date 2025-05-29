@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'dart:math';
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -53,18 +55,16 @@ class VideoRefScreen extends StatelessWidget {
               children: [
                 const Icon(Icons.video_library, size: 80, color: Colors.white),
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'Motivational Video',
-                  style: TextStyle(
-                    fontSize: 24,
+                  style: AppTextStyles.bold24Black.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
-                const Text(
+                Text(
                   'Take a moment to pause and regain your strength. This video might lift your spirits and bring clarity to your thoughts.',
-                  style: TextStyle(fontSize: 16, color: Colors.white70),
+                  style: AppTextStyles.body16.copyWith(color: AppColors.grey),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
@@ -93,9 +93,8 @@ class VideoRefScreen extends StatelessWidget {
                       horizontal: 32,
                       vertical: 16,
                     ),
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    textStyle: AppTextStyles.body16.copyWith(
+                      color: AppColors.black,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),

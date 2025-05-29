@@ -1,3 +1,5 @@
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 
 class DoctorRefScreen extends StatelessWidget {
@@ -69,23 +71,22 @@ class DoctorRefScreen extends StatelessWidget {
                         children: [
                           Text(
                             doctor["name"]!,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
+                            style: AppTextStyles.heading20White.copyWith(
+                              color: AppColors.gradientTop,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             doctor["specialization"]!,
-                            style: const TextStyle(fontSize: 16),
+                            style: AppTextStyles.body16.copyWith(
+                              color: AppColors.black,
+                            ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             doctor["contact"]!,
-                            style: const TextStyle(
-                              color: Colors.grey,
-                              fontSize: 14,
+                            style: AppTextStyles.body16.copyWith(
+                              color: AppColors.grey,
                             ),
                           ),
                         ],
