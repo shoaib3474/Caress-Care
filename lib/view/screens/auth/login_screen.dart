@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Text.rich(
                     TextSpan(
-                      text: 'Don\'t have an account?',
+                      text: 'Don\'t have an account? ',
                       children: [
                         TextSpan(
                           text: 'Register',
