@@ -83,13 +83,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: DropdownButtonFormField<String>(
                     value: selectedGender,
                     hint: const Text('Select Gender'),
-                    dropdownColor: Colors.white,
+                    dropdownColor: AppColors.white,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(vertical: 14),

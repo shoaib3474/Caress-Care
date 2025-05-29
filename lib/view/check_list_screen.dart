@@ -74,7 +74,7 @@ class _ChecklistScreenState extends State<ChecklistScreen>
         title: const Text('Mental Health Checklist'),
         elevation: 0,
         backgroundColor: controller.getStepColor(controller.currentStep),
-        foregroundColor: Colors.white,
+        foregroundColor: AppColors.white,
         centerTitle: true,
       ),
       body: Column(

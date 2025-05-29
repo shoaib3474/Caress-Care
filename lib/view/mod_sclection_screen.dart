@@ -39,12 +39,12 @@ class GlassCard extends StatelessWidget {
           width: 320,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.1),
+            color: AppColors.white.withOpacity(0.1),
             borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: Colors.white.withOpacity(0.2)),
+            border: Border.all(color: AppColors.white.withOpacity(0.2)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.2),
+                color: AppColors.black.withOpacity(0.2),
                 blurRadius: 10,
                 offset: const Offset(0, 6),
               ),
@@ -114,8 +114,8 @@ class _MoodOptionState extends State<MoodOption> {
       decoration: BoxDecoration(
         color:
             _hovering
-                ? Colors.white.withOpacity(0.2)
-                : Colors.white.withOpacity(0.1),
+                ? AppColors.white.withOpacity(0.2)
+                : AppColors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white24),
       ),
@@ -131,7 +131,7 @@ class _MoodOptionState extends State<MoodOption> {
             fontSize: 16,
           ),
         ),
-        trailing: const Icon(Icons.chevron_right, color: Colors.white70),
+        trailing: const Icon(Icons.chevron_right, color: AppColors.lightgrey),
       ),
     );
   }

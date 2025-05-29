@@ -1,4 +1,7 @@
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/instance_manager.dart';
 
 class DoctorRefScreen extends StatelessWidget {
   const DoctorRefScreen({super.key});
@@ -31,14 +34,24 @@ class DoctorRefScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back_ios, color: AppColors.deepPurple),
+        ),
         title: const Text("Doctor Reference"),
+
         centerTitle: true,
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: AppColors.white,
+        foregroundColor: AppColors.deepPurple,
+        elevation: 2,
       ),
+
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFE1BEE7), Color(0xFFBA68C8)],
+            colors: AppColors.mainGradient,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -84,7 +97,7 @@ class DoctorRefScreen extends StatelessWidget {
                           Text(
                             doctor["contact"]!,
                             style: const TextStyle(
-                              color: Colors.grey,
+                              color: AppColors.grey,
                               fontSize: 14,
                             ),
                           ),

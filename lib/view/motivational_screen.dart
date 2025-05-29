@@ -78,9 +78,11 @@ class _MotivationalScreenState extends State<MotivationalScreen>
                   child: Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: AppColors.white.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      border: Border.all(
+                        color: AppColors.white.withOpacity(0.2),
+                      ),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -88,7 +90,7 @@ class _MotivationalScreenState extends State<MotivationalScreen>
                         const Icon(
                           Icons.format_quote_rounded,
                           size: 48,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                         const SizedBox(height: 20),
                         Text(
@@ -97,7 +99,7 @@ class _MotivationalScreenState extends State<MotivationalScreen>
                           style: GoogleFonts.lora(
                             fontSize: 22,
                             fontWeight: FontWeight.w500,
-                            color: Colors.white,
+                            color: AppColors.white,
                             height: 1.6,
                           ),
                         ),
@@ -106,7 +108,7 @@ class _MotivationalScreenState extends State<MotivationalScreen>
                           height: 4,
                           width: 80,
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.3),
+                            color: AppColors.white.withOpacity(0.3),
                             borderRadius: BorderRadius.circular(20),
                           ),
                         ),

@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'dart:math';
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -27,7 +28,7 @@ class VideoRefScreen extends StatelessWidget {
     final randomLink = youtubeLinks[_random.nextInt(youtubeLinks.length)];
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -35,14 +36,14 @@ class VideoRefScreen extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
-                colors: [Colors.deepPurple, Colors.purpleAccent],
+                colors: [AppColors.gradientTop, AppColors.gradientBottom],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
               borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.purple.withOpacity(0.4),
+                  color: AppColors.gradientBottom.withOpacity(0.4),
                   blurRadius: 20,
                   offset: const Offset(0, 10),
                 ),
@@ -51,14 +52,18 @@ class VideoRefScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(Icons.video_library, size: 80, color: Colors.white),
+                const Icon(
+                  Icons.video_library,
+                  size: 80,
+                  color: AppColors.white,
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   'Motivational Video',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -87,8 +92,8 @@ class VideoRefScreen extends StatelessWidget {
                   icon: const Icon(Icons.play_circle_fill),
                   label: const Text('Watch Now'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.deepPurple,
+                    backgroundColor: AppColors.white,
+                    foregroundColor: AppColors.gradientTop,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 32,
                       vertical: 16,
