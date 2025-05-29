@@ -1,7 +1,9 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
 
 class UtubeVideoRefScreen extends StatelessWidget {
-  const UtubeVideoRefScreen({Key? key}) : super(key: key);
+  const UtubeVideoRefScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
