@@ -56,9 +56,9 @@ class _ChecklistScreenState extends State<ChecklistScreen>
     } else {
       int totalSelected = controller.totalSelected;
       if (totalSelected < 30) {
-        Get.to(AppRoutes.videoRefScreen);
+        Get.toNamed(AppRoutes.videoRefScreen);
       } else {
-        Get.to(AppRoutes.doctorRefScreen);
+        Get.toNamed(AppRoutes.doctorRefScreen);
       }
     }
   }

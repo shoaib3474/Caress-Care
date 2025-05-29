@@ -65,14 +65,14 @@ class GlassCard extends StatelessWidget {
                 mood: 'Happy',
                 emoji: '😊',
                 onTap: () {
-                  Get.to(AppRoutes.motivation);
+                  Get.toNamed(AppRoutes.motivation);
                 },
               ),
               const SizedBox(height: 10),
               MoodOption(
                 mood: 'Sad',
                 emoji: '😞',
-                onTap: () => Get.to(AppRoutes.checklistScreen),
+                onTap: () => Get.toNamed(AppRoutes.checklistScreen),
               ),
             ],
           ),
