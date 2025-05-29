@@ -1,7 +1,6 @@
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 
 class DoctorRefScreen extends StatelessWidget {
   const DoctorRefScreen({super.key});
