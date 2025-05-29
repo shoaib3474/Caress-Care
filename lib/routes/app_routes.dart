@@ -1,11 +1,11 @@
-import 'package:caress_care/view/check_list_screen.dart';
-import 'package:caress_care/view/doctor_ref_screen.dart';
-import 'package:caress_care/view/mod_sclection_screen.dart';
-import 'package:caress_care/view/motivational_screen.dart';
+import 'package:caress_care/view/screens/check_list_screen.dart';
+import 'package:caress_care/view/screens/doctor_ref_screen.dart';
+import 'package:caress_care/view/screens/mod_sclection_screen.dart';
+import 'package:caress_care/view/screens/motivational_screen.dart';
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
 import 'package:caress_care/view/screens/video_ref_screen.dart';
-import 'package:caress_care/view/splash_screen.dart';
+import 'package:caress_care/view/screens/splash_screen.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
