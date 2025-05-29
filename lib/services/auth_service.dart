@@ -1,4 +1,5 @@
 import 'package:caress_care/routes/app_routes.dart';
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -63,7 +64,11 @@ class AuthService {
       // Navigate on success
       Get.offAllNamed(AppRoutes.mood); // Or use AppRoutes.mood if imported
     } on FirebaseAuthException catch (e) {
-      Get.snackbar('Login Failed', e.message ?? 'Unknown error');
+      Get.snackbar(
+        'Login Failed',
+        e.message ?? 'Unknown error',
+        backgroundColor: AppColors.grey,
+      );
     } catch (e) {
       Get.snackbar('Error', 'Something went wrong');
     }

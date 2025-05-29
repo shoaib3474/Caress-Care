@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatefulWidget {
@@ -40,15 +41,12 @@ class _CustomButtonState extends State<CustomButton> {
         height: widget.height,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color:
-              _pressed
-                  ? Colors.white.withOpacity(0.2)
-                  : Colors.white.withOpacity(0.1),
+          color: AppColors.gradientTop,
           borderRadius: BorderRadius.circular(widget.borderRadius),
           border: Border.all(color: Colors.white24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.15),
+              color: AppColors.shadow,
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),

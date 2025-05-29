@@ -8,8 +8,7 @@ import 'routes/app_routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print("hello Fire");
-  print("hello Fire");
+
   runApp(const MyApp());
 }
 
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
 
       title: 'Calm Zone',
 
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppRoutes.mood,
       getPages: AppRoutes.routes,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),
     );

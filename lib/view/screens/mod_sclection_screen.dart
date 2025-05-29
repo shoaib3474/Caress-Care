@@ -40,12 +40,12 @@ class GlassCard extends StatelessWidget {
           width: 320,
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: AppColors.white.withOpacity(0.1),
+            color: AppColors.gradientMid,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(color: AppColors.white.withOpacity(0.2)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black.withOpacity(0.2),
+                color: AppColors.shadow,
                 blurRadius: 10,
                 offset: const Offset(0, 6),
               ),
@@ -56,7 +56,7 @@ class GlassCard extends StatelessWidget {
             children: [
               SizedBox(),
               Text(
-                'What\'s your mood today?',
+                'What\'s your mod today?',
                 textAlign: TextAlign.center,
                 style: AppTextStyles.body16.copyWith(fontSize: 18),
               ),

@@ -31,79 +31,83 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            // spacing: 10,
-            children: [
-              Center(
-                child: Lottie.asset(Assets.anim.splashImageAnim, width: 200),
-              ),
-              const Text(
-                'Welcome Back!',
-                textAlign: TextAlign.center,
-                style: AppTextStyles.heading20White,
-              ),
-              SizedBox(height: 10),
-              CustomTextField(
-                controller: emailCtrl,
-                hintText: 'Enter Your Email',
-              ),
-              SizedBox(height: 10),
-              CustomTextField(
-                controller: pwCtrl,
-                hintText: 'Enter Your Password',
-              ),
+          child: SingleChildScrollView(
+            child: Column(
+              // spacing: 10,
+              children: [
+                Center(
+                  child: Lottie.asset(Assets.anim.splashImageAnim, width: 200),
+                ),
+                const Text(
+                  'Welcome Back!',
+                  textAlign: TextAlign.center,
+                  style: AppTextStyles.heading20White,
+                ),
+                SizedBox(height: 10),
+                CustomTextField(
+                  controller: emailCtrl,
+                  hintText: 'Enter Your Email',
+                ),
+                SizedBox(height: 10),
+                CustomTextField(
+                  controller: pwCtrl,
+                  hintText: 'Enter Your Password',
+                ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    child: Text(
-                      'Forget Password',
-                      style: AppTextStyles.body16.copyWith(
-                        color: Colors.blueGrey,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        'Forget Password',
+                        style: AppTextStyles.body16.copyWith(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
+                CustomButton(
+                  text: "Login",
+                  onTap: () {
+                    AuthService.loginUser(
+                      email: emailCtrl.text.trim(),
+                      password: pwCtrl.text.trim(),
+                    );
+                  },
+                ),
+
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text.rich(
+                      TextSpan(
+                        text: 'Don\'t have an account? ',
+                        children: [
+                          TextSpan(
+                            text: 'Register',
+                            recognizer:
+                                TapGestureRecognizer()
+                                  ..onTap = () {
+                                    Get.toNamed(AppRoutes.register);
+                                  },
+                            style: AppTextStyles.body16.copyWith(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                        style: AppTextStyles.heading20White,
                       ),
                     ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              CustomButton(
-                text: "Login",
-                onTap: () {
-                  AuthService.loginUser(
-                    email: emailCtrl.text.trim(),
-                    password: pwCtrl.text.trim(),
-                  );
-                },
-              ),
-
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      text: 'Don\'t have an account? ',
-                      children: [
-                        TextSpan(
-                          text: 'Register',
-                          recognizer:
-                              TapGestureRecognizer()
-                                ..onTap = () {
-                                  Get.toNamed(AppRoutes.register);
-                                },
-                          style: AppTextStyles.body16.copyWith(
-                            color: Colors.blueGrey,
-                          ),
-                        ),
-                      ],
-                      style: AppTextStyles.heading20White,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
