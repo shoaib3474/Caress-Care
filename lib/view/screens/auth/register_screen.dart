@@ -45,7 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 8),
                 const Text(
-                  'Welcome to Caress Care!',
+                  'Welcome to Calm Zone!',
                   textAlign: TextAlign.center,
                   style: AppTextStyles.heading20White,
                 ),
