@@ -1,7 +1,31 @@
 import 'package:flutter/material.dart';
 
 class DoctorRefScreen extends StatelessWidget {
-  const DoctorRefScreen({Key? key}) : super(key: key);
+  const DoctorRefScreen({super.key});
+
+  final List<Map<String, String>> dummyDoctors = const [
+    {
+      "name": "Dr. Sarah Ali",
+      "specialization": "Psychiatrist",
+      "contact": "+92 300 1234567",
+      "image":
+          "https://img.freepik.com/free-photo/portrait-smiling-handsome-doctor-man_171337-5055.jpg",
+    },
+    {
+      "name": "Dr. Hamza Khan",
+      "specialization": "Clinical Psychologist",
+      "contact": "+92 345 9876543",
+      "image":
+          "https://img.freepik.com/premium-photo/portrait-doctor_103420-211.jpg",
+    },
+    {
+      "name": "Dr. Ayesha Noor",
+      "specialization": "Therapist",
+      "contact": "+92 333 4567890",
+      "image":
+          "https://img.freepik.com/free-photo/female-doctor-holding-stethoscope-her-hands-hospital_1303-17840.jpg",
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
