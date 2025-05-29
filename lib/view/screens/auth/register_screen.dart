@@ -21,7 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final firstNameCtrl = TextEditingController();
   final lastNameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
-  final pwCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
   final confirmPwCtrl = TextEditingController();
   final dobCtrl = TextEditingController();
 
@@ -137,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                 const SizedBox(height: 12),
                 CustomTextField(
-                  controller: pwCtrl,
+                  controller: passwordCtrl,
                   hintText: 'Enter Your Password',
                   isPassword: true,
                 ),
