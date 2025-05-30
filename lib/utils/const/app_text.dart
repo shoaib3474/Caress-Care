@@ -21,10 +21,10 @@ class AppTextStyles {
     fontSize: 14,
     color: AppColors.textSecondary, // You should define this in AppColors
   );
-  static const TextStyle bold24Black = TextStyle(
+  static const TextStyle heading20 = TextStyle(
     fontFamily: 'Poppins',
-    fontSize: 24,
-    color: AppColors.white,
+    fontSize: 20,
+    color: AppColors.textPrimary,
   );
   static const TextStyle buttonText = TextStyle(
     fontSize: 16,

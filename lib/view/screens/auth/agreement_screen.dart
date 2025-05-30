@@ -59,7 +59,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                 const SizedBox(height: 20),
                 Text(
                   'User Agreement',
-                  style: AppTextStyles.bold24Black.copyWith(
+                  style: AppTextStyles.heading20.copyWith(
                     color: AppColors.textPrimary,
                   ),
                 ),
