@@ -26,7 +26,6 @@ class CustomButton extends StatefulWidget {
 }
 
 class _CustomButtonState extends State<CustomButton> {
-  // ignore: unused_field
   bool _pressed = false;
 
   @override

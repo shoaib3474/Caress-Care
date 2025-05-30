@@ -1,10 +1,6 @@
 import 'dart:math';
-import 'package:caress_care/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'package:caress_care/utils/const/app_colors.dart';
-import 'package:caress_care/utils/const/app_text.dart';
 
 class VideoRefScreen extends StatefulWidget {
   const VideoRefScreen({super.key});
@@ -14,184 +10,236 @@ class VideoRefScreen extends StatefulWidget {
 }
 
 class _VideoRefScreenState extends State<VideoRefScreen> {
-  final List<String> youtubeLinks = [
-    'https://youtu.be/xRxT9cOKiM8',
-    'https://youtu.be/1dbYduxIpwE',
-    'https://youtu.be/hAkgumAMOIg',
-    'https://youtu.be/H_uc-uQ3Nkc',
-    'https://youtu.be/Ivbkx4GUzAY',
-    'https://youtu.be/VDLfVwMSbJ8',
-    'https://youtu.be/xShv7mMmfW4',
-    'https://youtu.be/ztTexqGQ0VI',
-    'https://youtu.be/YzRUEmqDJd8',
-    'https://youtu.be/tuPW7oOudVc',
+  final List<Map<String, String>> youtubeVideos = [
+    {
+      'title': 'Overcome Anxiety – Motivation',
+      'url': 'https://youtu.be/xRxT9cOKiM8',
+      'thumbnail': 'https://img.youtube.com/vi/xRxT9cOKiM8/0.jpg',
+    },
+    {
+      'title': 'Self Discipline – Daily Motivation',
+      'url': 'https://youtu.be/1dbYduxIpwE',
+      'thumbnail': 'https://img.youtube.com/vi/1dbYduxIpwE/0.jpg',
+    },
+    {
+      'title': 'Focus Like a Monk – Motivation',
+      'url': 'https://youtu.be/hAkgumAMOIg',
+      'thumbnail': 'https://img.youtube.com/vi/hAkgumAMOIg/0.jpg',
+    },
+    {
+      'title': 'Believe in Yourself – Uplifting',
+      'url': 'https://youtu.be/H_uc-uQ3Nkc',
+      'thumbnail': 'https://img.youtube.com/vi/H_uc-uQ3Nkc/0.jpg',
+    },
   ];
 
-  final List<String> activityImages = [
-    Assets.images.mvtIm1.path,
-    Assets.images.mvtIm2.path,
-    Assets.images.mvtIm3.path,
-    Assets.images.mvtIm4.path,
-    Assets.images.mvtIm5.path,
-    Assets.images.mvtIm6.path,
-    Assets.images.mvtIm7.path,
-    Assets.images.mvtIm8.path,
+  final List<Map<String, String>> activities = [
+    {
+      'text': 'Take a deep breath and relax.',
+      'image':
+          'https://images.pexels.com/photos/3759657/pexels-photo-3759657.jpeg?auto=compress&w=800',
+    },
+    {
+      'text': 'Try 5 minutes of silent meditation.',
+      'image':
+          'https://images.pexels.com/photos/3822622/pexels-photo-3822622.jpeg?auto=compress&w=800',
+    },
+    {
+      'text': 'Write 3 things you’re grateful for.',
+      'image':
+          'https://images.pexels.com/photos/636243/pexels-photo-636243.jpeg?auto=compress&w=800',
+    },
   ];
 
-  final List<String> activitySuggestions = [
-    'Take a deep breath and relax your body.',
-    'Try 5 minutes of silent meditation.',
-    'Write down three things you’re grateful for.',
-    'Stretch your arms and legs gently.',
-    'Take a short mindful walk.',
-    'Listen to calming music.',
-    'Draw or doodle whatever comes to mind.',
-    'Try a quick body scan meditation.',
-  ];
-
-  late String currentLink;
-  late String currentActivity;
-  bool showMoreVideos = false;
-  bool showActivityImages = false;
+  late Map<String, String> currentVideo;
+  late Map<String, String> currentActivity;
+  bool showAllVideos = false;
+  bool showAllActivities = false;
 
   @override
   void initState() {
     super.initState();
-    _shuffleSuggestions();
+    final random = Random();
+    currentVideo =
+        youtubeVideos.isNotEmpty
+            ? youtubeVideos[random.nextInt(youtubeVideos.length)]
+            : {};
+    currentActivity =
+        activities.isNotEmpty
+            ? activities[random.nextInt(activities.length)]
+            : {};
+  }
+
+  void _launchVideo(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
 
   void _shuffleSuggestions() {
     final random = Random();
-    currentLink = youtubeLinks[random.nextInt(youtubeLinks.length)];
-    currentActivity =
-        activitySuggestions[random.nextInt(activitySuggestions.length)];
-  }
-
-  Future<void> _launchVideo() async {
-    final videoId = Uri.parse(currentLink).pathSegments.last;
-    final Uri youtubeAppUri = Uri.parse("vnd.youtube:$videoId");
-    final Uri youtubeWebUri = Uri.parse(currentLink);
-
-    if (await canLaunchUrl(youtubeAppUri)) {
-      await launchUrl(youtubeAppUri, mode: LaunchMode.externalApplication);
-    } else if (await canLaunchUrl(youtubeWebUri)) {
-      await launchUrl(youtubeWebUri, mode: LaunchMode.externalApplication);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Could not launch YouTube video')),
-      );
-    }
+    setState(() {
+      currentVideo =
+          youtubeVideos.isNotEmpty
+              ? youtubeVideos[random.nextInt(youtubeVideos.length)]
+              : {};
+      currentActivity =
+          activities.isNotEmpty
+              ? activities[random.nextInt(activities.length)]
+              : {};
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
-      appBar: AppBar(
-        title: const Text('Mental Boost'),
-        backgroundColor: AppColors.gradientTop,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () {
-              setState(() => _shuffleSuggestions());
-            },
+      backgroundColor: const Color(0xFFF9F9F9),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: 40,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text(
+                'Motivational Space',
+                style: TextStyle(color: Colors.white),
+              ),
+              background: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.deepPurple, Colors.indigo],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.refresh, color: Colors.white),
+                onPressed: _shuffleSuggestions,
+              ),
+            ],
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Video Section Heading
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      'Motivational Videos',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                  ),
+                  _buildVideoCard(currentVideo),
+                  if (showAllVideos)
+                    ...youtubeVideos.map(
+                      (video) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: _buildVideoCard(video),
+                      ),
+                    ),
+                  TextButton.icon(
+                    onPressed:
+                        () => setState(() => showAllVideos = !showAllVideos),
+                    icon: Icon(
+                      showAllVideos
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
+                    ),
+                    label: Text(
+                      showAllVideos ? 'Show Less Videos' : 'Show More Videos',
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+
+                  // Activities Section Heading
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 8.0),
+                    child: Text(
+                      'Mindful Activities',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.indigo,
+                      ),
+                    ),
+                  ),
+                  if (showAllActivities)
+                    ...activities.map(
+                      (activity) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: _buildActivityCard(activity),
+                      ),
+                    )
+                  else
+                    _buildActivityCard(currentActivity),
+                  TextButton.icon(
+                    onPressed:
+                        () => setState(
+                          () => showAllActivities = !showAllActivities,
+                        ),
+                    icon: Icon(
+                      showAllActivities
+                          ? Icons.keyboard_arrow_up
+                          : Icons.keyboard_arrow_down,
+                    ),
+                    label: Text(
+                      showAllActivities
+                          ? 'Show Less Activities'
+                          : 'Show More Activities',
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+    );
+  }
+
+  Widget _buildVideoCard(Map<String, String> video) {
+    return GestureDetector(
+      onTap: () => _launchVideo(video['url']!),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title Section
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome 👋',
-                  style: AppTextStyles.bold24Black.copyWith(fontSize: 28),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Recharge your mind with a motivational video and a mindful activity.',
-                  style: AppTextStyles.body16.copyWith(
-                    color: AppColors.lightgrey,
-                  ),
-                ),
-              ],
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+              child: Image.network(
+                video['thumbnail']!,
+                height: 180,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
-
-            const SizedBox(height: 30),
-
-            // Motivational Video Card
-            _buildSectionCard(
-              icon: Icons.ondemand_video_rounded,
-              title: 'Motivational Video',
-              description: 'Get inspired with a handpicked motivational video.',
-              buttonText: showMoreVideos ? 'Hide Videos' : 'View More',
-              onPressed: () {
-                setState(() => showMoreVideos = !showMoreVideos);
-              },
-              child:
-                  showMoreVideos
-                      ? Column(
-                        children:
-                            youtubeLinks.map((link) {
-                              return ListTile(
-                                title: Text(
-                                  link,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                                trailing: const Icon(Icons.open_in_new),
-                                onTap: () async {
-                                  final Uri uri = Uri.parse(link);
-                                  if (await canLaunchUrl(uri)) {
-                                    await launchUrl(
-                                      uri,
-                                      mode: LaunchMode.externalApplication,
-                                    );
-                                  }
-                                },
-                              );
-                            }).toList(),
-                      )
-                      : null,
-            ),
-
-            const SizedBox(height: 30),
-
-            // Activity Suggestion Card
-            _buildSectionCard(
-              icon: Icons.self_improvement,
-              title: 'Try This Activity',
-              description: currentActivity,
-              buttonText:
-                  showActivityImages ? 'Hide Images' : 'Refresh Activity',
-              onPressed: () {
-                setState(() {
-                  _shuffleSuggestions();
-                  showActivityImages = !showActivityImages;
-                });
-              },
-              child:
-                  showActivityImages
-                      ? Wrap(
-                        spacing: 10,
-                        runSpacing: 10,
-                        children:
-                            activityImages.map((path) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  path,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
-                                ),
-                              );
-                            }).toList(),
-                      )
-                      : null,
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                video['title']!,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ],
         ),
@@ -199,53 +247,33 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
     );
   }
 
-  Widget _buildSectionCard({
-    required IconData icon,
-    required String title,
-    required String description,
-    required String buttonText,
-    required VoidCallback onPressed,
-    Widget? child,
-  }) {
-    return Card(
-      elevation: 5,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          children: [
-            Icon(icon, size: 50, color: AppColors.gradientTop),
-            const SizedBox(height: 16),
-            Text(
-              title,
-              style: AppTextStyles.bold24Black.copyWith(fontSize: 20),
-              textAlign: TextAlign.center,
+  Widget _buildActivityCard(Map<String, String> activity) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+            child: Image.network(
+              activity['image']!,
+              height: 180,
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
-            const SizedBox(height: 12),
-            Text(
-              description,
-              style: AppTextStyles.body16.copyWith(fontSize: 16),
-              textAlign: TextAlign.center,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              activity['text']!,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.gradientTop,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 14,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(buttonText),
-            ),
-            if (child != null) ...[const SizedBox(height: 20), child],
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:caress_care/controller/mod_ctrl.dart';
 import 'package:caress_care/customs/custom_button.dart';
-import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
