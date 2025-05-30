@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       title: 'Calm Zone',
-
       initialRoute: AppRoutes.checklistScreen,
       getPages: AppRoutes.routes,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),

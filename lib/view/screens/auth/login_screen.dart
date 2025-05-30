@@ -19,6 +19,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailCtrl = TextEditingController();
   final pwCtrl = TextEditingController();
+
+  bool isLoggingIn = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,15 +75,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ],
                 ),
                 SizedBox(height: 15),
-                CustomButton(
-                  text: "Login",
-                  onTap: () {
-                    AuthService.loginUser(
-                      email: emailCtrl.text.trim(),
-                      password: pwCtrl.text.trim(),
-                    );
-                  },
-                ),
+                isLoggingIn
+                    ? CircularProgressIndicator(color: AppColors.white)
+                    : CustomButton(
+                      text: "Login",
+                      onTap: () {
+                        setState(() {
+                          isLoggingIn = true;
+                        });
+                        AuthService.loginUser(
+                          email: emailCtrl.text.trim(),
+                          password: pwCtrl.text.trim(),
+                        );
+                        setState(() {
+                          isLoggingIn = false;
+                        });
+                      },
+                    ),
 
                 SizedBox(height: 30),
                 Row(
