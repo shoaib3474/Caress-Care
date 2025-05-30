@@ -1,5 +1,6 @@
-import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +26,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFE6D6F3), Color(0xFFD0E9F6)],
+            colors: AppColors.mainGradient,
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -38,12 +39,10 @@ class _AgreementScreenState extends State<AgreementScreen> {
                 const SizedBox(height: 20),
 
                 const SizedBox(height: 20),
-                const Text(
+                Text(
                   'User Agreement',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                  style: AppTextStyles.bold24Black.copyWith(
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -91,8 +90,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                   child: ElevatedButton(
                     onPressed: _isChecked ? _onAccept : null,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFDCCEF9),
-                      foregroundColor: Colors.white,
+                      backgroundColor: AppColors.gradientMid,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

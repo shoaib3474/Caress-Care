@@ -1,13 +1,14 @@
 import 'package:caress_care/model/mod_model.dart';
+import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ChecklistController extends ChangeNotifier {
   int currentStep = 0;
   bool showMore = false;
 
-  late List<MentalHealthQuestion> anxietyList;
-  late List<MentalHealthQuestion> depressionList;
-  late List<MentalHealthQuestion> stressList;
+  late final List<MentalHealthQuestion> anxietyList;
+  late final List<MentalHealthQuestion> depressionList;
+  late final List<MentalHealthQuestion> stressList;
 
   ChecklistController() {
     anxietyList = [
@@ -59,21 +60,9 @@ class ChecklistController extends ChangeNotifier {
     ];
   }
 
-  List<MentalHealthQuestion> getCurrentList() {
-    switch (currentStep) {
-      case 0:
-        return anxietyList;
-      case 1:
-        return depressionList;
-      case 2:
-        return stressList;
-      default:
-        return [];
-    }
-  }
-
-  String getCurrentTitle() {
-    switch (currentStep) {
+  // 🔄 Step-based titles
+  String getTitleByStep(int step) {
+    switch (step) {
       case 0:
         return 'Anxiety Symptoms';
       case 1:
@@ -85,39 +74,63 @@ class ChecklistController extends ChangeNotifier {
     }
   }
 
+  // 🔄 Step-based list
+  List<MentalHealthQuestion> getListByStep(int step) {
+    switch (step) {
+      case 0:
+        return anxietyList;
+      case 1:
+        return depressionList;
+      case 2:
+        return stressList;
+      default:
+        return [];
+    }
+  }
+
   Color getStepColor(int step) {
-    const List<Color> stepColors = [
-      Color(0xFF7B2FF7),
-      Color(0xFF9F44D3),
-      Color(0xFFBF5AE0),
+    List<Color> stepColors = [
+      AppColors.gradientTop,
+      AppColors.gradientMid,
+      AppColors.gradientBottom,
     ];
     return stepColors[step];
   }
 
+  // 📦 Current step title (for app bar)
+  String getCurrentTitle() => getTitleByStep(currentStep);
+
+  // 📦 Current list (based on currentStep)
+  List<MentalHealthQuestion> getCurrentList() => getListByStep(currentStep);
+
+  // ✅ Toggle show more / less
   void toggleShowMore() {
     showMore = !showMore;
     notifyListeners();
   }
 
-  void toggleQuestion(MentalHealthQuestion q, bool? value) {
-    q.isSelected = value ?? false;
+  // ☑️ Toggle question selection
+  void toggleQuestion(MentalHealthQuestion question, bool? value) {
+    question.isSelected = value ?? false;
     notifyListeners();
   }
 
+  // 🔄 Move to next step or finish
   void nextStep(VoidCallback onFinish) {
     if (currentStep < 2) {
-      showMore = false;
       currentStep++;
+      showMore = false;
       notifyListeners();
     } else {
       onFinish();
     }
   }
 
+  // 🔢 Total selected across all lists
   int get totalSelected =>
       [
         ...anxietyList,
-        ...stressList,
         ...depressionList,
+        ...stressList,
       ].where((q) => q.isSelected).length;
 }

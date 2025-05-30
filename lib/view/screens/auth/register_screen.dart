@@ -10,7 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -115,10 +114,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   onTap: () async {
                     final pickedDate = await showDatePicker(
                       context: context,
-                      initialDate: DateTime(2000),
-                      firstDate: DateTime(1900),
-                      lastDate: DateTime.now(),
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(
+                        2000,
+                      ), // ✅ Allows only dates from 2000 onwards
+                      lastDate:
+                          DateTime.now(), // ✅ Restricts selection to today or earlier
                     );
+
                     if (pickedDate != null) {
                       setState(() {
                         dobCtrl.text = DateFormat(
@@ -127,6 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       });
                     }
                   },
+
                   child: AbsorbPointer(
                     child: CustomTextField(
                       controller: dobCtrl,
@@ -179,7 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Get.toNamed(AppRoutes.login);
                               },
                         style: AppTextStyles.body16.copyWith(
-                          color: Colors.blueGrey,
+                          color: Colors.blue,
                         ),
                       ),
                     ],

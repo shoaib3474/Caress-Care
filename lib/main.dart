@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 
       title: 'Calm Zone',
 
-      initialRoute: AppRoutes.splash,
+      initialRoute: AppRoutes.checklistScreen,
       getPages: AppRoutes.routes,
       theme: ThemeData(useMaterial3: true, fontFamily: 'Poppins'),
     );

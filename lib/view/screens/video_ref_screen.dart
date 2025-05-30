@@ -1,116 +1,180 @@
-// ignore_for_file: use_build_context_synchronously, deprecated_member_use
-
 import 'dart:math';
-import 'package:caress_care/utils/const/app_colors.dart';
-import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class VideoRefScreen extends StatelessWidget {
-  VideoRefScreen({super.key});
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 
+class VideoRefScreen extends StatefulWidget {
+  const VideoRefScreen({super.key});
+
+  @override
+  State<VideoRefScreen> createState() => _VideoRefScreenState();
+}
+
+class _VideoRefScreenState extends State<VideoRefScreen> {
   final List<String> youtubeLinks = [
-    'https://youtu.be/xRxT9cOKiM8?si=sN3mncxJDoseP8N-',
-    'https://youtu.be/1dbYduxIpwE?si=9MCzfKkppZG7KVOK',
-    'https://youtu.be/hAkgumAMOIg?si=_KVllhLhhVaRGzIT',
-    'https://youtu.be/H_uc-uQ3Nkc?si=_5SQpvsZ7DMJymKf',
-    'https://youtu.be/Ivbkx4GUzAY?si=gZDeuwsz7qCwUreC',
-    'https://youtu.be/VDLfVwMSbJ8?si=IDAqcExtycltmJZM',
-    'https://youtu.be/xShv7mMmfW4?si=3uaqu5CYvOfgts7E',
-    'https://youtu.be/ztTexqGQ0VI?si=5KCBPrkybca3GVep',
-    'https://youtu.be/YzRUEmqDJd8?si=U0wGbdEcSuIthhC1',
-    'https://youtu.be/tuPW7oOudVc?si=Onf_RAWLbEeMC8b7',
+    'https://youtu.be/xRxT9cOKiM8',
+    'https://youtu.be/1dbYduxIpwE',
+    'https://youtu.be/hAkgumAMOIg',
+    'https://youtu.be/H_uc-uQ3Nkc',
+    'https://youtu.be/Ivbkx4GUzAY',
+    'https://youtu.be/VDLfVwMSbJ8',
+    'https://youtu.be/xShv7mMmfW4',
+    'https://youtu.be/ztTexqGQ0VI',
+    'https://youtu.be/YzRUEmqDJd8',
+    'https://youtu.be/tuPW7oOudVc',
   ];
 
-  final Random _random = Random();
+  final List<String> activitySuggestions = [
+    '🧘‍♂️ Try 10 minutes of meditation.',
+    '📓 Write down 3 things you’re grateful for.',
+    '🚶‍♀️ Take a short mindful walk.',
+  ];
+
+  late String currentLink;
+  late String currentActivity;
+
+  @override
+  void initState() {
+    super.initState();
+    _shuffleSuggestions();
+  }
+
+  void _shuffleSuggestions() {
+    final random = Random();
+    currentLink = youtubeLinks[random.nextInt(youtubeLinks.length)];
+    currentActivity =
+        activitySuggestions[random.nextInt(activitySuggestions.length)];
+  }
+
+  Future<void> _launchVideo() async {
+    final videoId = Uri.parse(currentLink).pathSegments.last;
+    final Uri youtubeAppUri = Uri.parse("vnd.youtube:$videoId");
+    final Uri youtubeWebUri = Uri.parse(currentLink);
+
+    if (await canLaunchUrl(youtubeAppUri)) {
+      await launchUrl(youtubeAppUri, mode: LaunchMode.externalApplication);
+    } else if (await canLaunchUrl(youtubeWebUri)) {
+      await launchUrl(youtubeWebUri, mode: LaunchMode.externalApplication);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not launch YouTube video')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final randomLink = youtubeLinks[_random.nextInt(youtubeLinks.length)];
-
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Container(
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [AppColors.gradientTop, AppColors.gradientBottom],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.gradientBottom.withOpacity(0.4),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+      appBar: AppBar(
+        title: const Text('Mental Boost'),
+        backgroundColor: AppColors.gradientTop,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              setState(() => _shuffleSuggestions());
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            // Title Section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.video_library,
-                  size: 80,
-                  color: AppColors.white,
-                ),
-                const SizedBox(height: 20),
                 Text(
-                  'Motivational Video',
-                  style: AppTextStyles.bold24Black.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  'Welcome 👋',
+                  style: AppTextStyles.bold24Black.copyWith(fontSize: 28),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
-                  'Take a moment to pause and regain your strength. This video might lift your spirits and bring clarity to your thoughts.',
+                  'Recharge your mind with a motivational video and a mindful activity.',
                   style: AppTextStyles.body16.copyWith(
                     color: AppColors.lightgrey,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    final uri = Uri.parse(randomLink);
-                    if (await canLaunchUrl(uri)) {
-                      await launchUrl(
-                        uri,
-                        mode: LaunchMode.externalApplication,
-                      );
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Could not launch YouTube link'),
-                        ),
-                      );
-                    }
-                  },
-                  icon: const Icon(Icons.play_circle_fill),
-                  label: const Text('Watch Now'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.white,
-                    foregroundColor: AppColors.gradientTop,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 32,
-                      vertical: 16,
-                    ),
-                    textStyle: AppTextStyles.body16.copyWith(
-                      color: AppColors.black,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
                 ),
               ],
             ),
-          ),
+
+            const SizedBox(height: 30),
+
+            // Motivational Video Card
+            _buildSectionCard(
+              icon: Icons.ondemand_video_rounded,
+              title: 'Motivational Video',
+              description: 'Get inspired with a handpicked motivational video.',
+              buttonText: 'Watch Now',
+              onPressed: _launchVideo,
+            ),
+
+            const SizedBox(height: 30),
+
+            // Activity Suggestion Card
+            _buildSectionCard(
+              icon: Icons.self_improvement,
+              title: 'Try This Activity',
+              description: currentActivity,
+              buttonText: 'Refresh Activity',
+              onPressed: () {
+                setState(() => _shuffleSuggestions());
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionCard({
+    required IconData icon,
+    required String title,
+    required String description,
+    required String buttonText,
+    required VoidCallback onPressed,
+  }) {
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Icon(icon, size: 50, color: AppColors.gradientTop),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: AppTextStyles.bold24Black.copyWith(fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              description,
+              style: AppTextStyles.body16.copyWith(fontSize: 16),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.gradientTop,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 32,
+                  vertical: 14,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(buttonText),
+            ),
+          ],
         ),
       ),
     );
