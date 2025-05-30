@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,7 +29,7 @@ class DoctorRefScreen extends StatelessWidget {
       "image":
           "https://plus.unsplash.com/premium_photo-1661634265749-20267b28e13d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8bWFsZSUyMGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D",
       "experience": "8 years",
-      "hospital": "Mind Care Clinic, Karachi",
+      "hospital": "Mind Care Clinic, Islamabad",
       "about":
           "Specializes in adolescent therapy and stress management. Uses modern therapy techniques.",
     },
@@ -49,7 +51,7 @@ class DoctorRefScreen extends StatelessWidget {
       "image":
           "https://images.unsplash.com/photo-1612531386530-97286d97c2d2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZSUyMGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D",
       "experience": "15 years",
-      "hospital": "Punjab Medical Complex, Lahore",
+      "hospital": "Punjab Medical Complex, Islamabad",
       "about":
           "Renowned for treating severe mental illnesses and addiction recovery.",
     },
@@ -60,7 +62,7 @@ class DoctorRefScreen extends StatelessWidget {
       "image":
           "https://images.unsplash.com/photo-1659353888906-adb3e0041693?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZmVtYWxlJTIwZG9jdG9yfGVufDB8fDB8fHww",
       "experience": "7 years",
-      "hospital": "Hope Clinic, Karachi",
+      "hospital": "Hope Clinic, Islamabad",
       "about": "Expert in cognitive behavioral therapy and mindfulness.",
     },
     {
@@ -70,7 +72,7 @@ class DoctorRefScreen extends StatelessWidget {
       "image":
           "https://plus.unsplash.com/premium_photo-1664476459351-59625a0fef11?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWFsZSUyMGRvY3RvcnxlbnwwfHwwfHx8MA%3D%3D",
       "experience": "9 years",
-      "hospital": "Peace Hospital, Multan",
+      "hospital": "Peace Hospital, Islamabad",
       "about": "Focuses on relationship counseling and anger management.",
     },
     {
@@ -115,28 +117,22 @@ class DoctorRefScreen extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF7B2FF7), Color(0xFFF357A8)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+              colors: AppColors.mainGradient,
+             
             ),
           ),
           child: SafeArea(
             child: Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                  icon: const Icon(Icons.arrow_back_ios, color:AppColors.textPrimary),
                   onPressed: () => Get.back(),
                 ),
                 const SizedBox(width: 8),
                 const Expanded(
                   child: Text(
                     "Doctor Reference",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22,
-                      letterSpacing: 0.5,
-                    ),
+                    style: AppTextStyles.heading20
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -149,9 +145,7 @@ class DoctorRefScreen extends StatelessWidget {
         padding: EdgeInsets.only(top: 10),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFF7B2FF7), Color(0xFFfbc2eb)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+        colors: AppColors.mainGradient,
           ),
         ),
         child: ListView.builder(
@@ -205,21 +199,17 @@ class DoctorRefScreen extends StatelessWidget {
                             children: [
                               Text(
                                 doctor["name"] ?? "",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color(0xFF7B2FF7),
-                                ),
+                                style: AppTextStyles.body16.copyWith(
+                                  color: Color(0xFF7B2FF7),fontWeight: FontWeight.bold )
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 doctor["specialization"] ?? "",
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Color(0xFF9F44D3),
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                  style: AppTextStyles.body14.copyWith(
+                                  color: Color(0xFF9F44D3),fontWeight: FontWeight.bold )
                               ),
+                               
+                              
                               const SizedBox(height: 2),
                               Row(
                                 children: [
@@ -231,10 +221,10 @@ class DoctorRefScreen extends StatelessWidget {
                                   const SizedBox(width: 4),
                                   Text(
                                     doctor["experience"] ?? "",
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      color: Colors.black87,
-                                    ),
+                                        style: AppTextStyles.body14.copyWith(
+                                       fontSize: 13,
+                                      color: Colors.black87,)
+                                 
                                   ),
                                 ],
                               ),
@@ -249,10 +239,9 @@ class DoctorRefScreen extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       doctor["hospital"] ?? "",
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.black54,
-                                      ),
+                                      style: AppTextStyles.body14.copyWith(
+                                       fontSize: 13,
+                                      color: Colors.black45,),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -263,10 +252,9 @@ class DoctorRefScreen extends StatelessWidget {
                                 doctor["about"] ?? "",
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  color: Colors.black87,
-                                ),
+                                style: AppTextStyles.body14.copyWith(
+                                       fontSize: 12,
+                                      color: Colors.black87,)
                               ),
                               const SizedBox(height: 8),
                               GestureDetector(

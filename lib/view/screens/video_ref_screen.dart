@@ -1,5 +1,8 @@
 import 'dart:math';
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VideoRefScreen extends StatefulWidget {
@@ -94,116 +97,126 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 40,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                'Motivational Space',
-                style: TextStyle(color: Colors.white),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: AppColors.mainGradient,
+          
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Custom Row for title and refresh button
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                child: Row(
+                  spacing: 6,
+                  children: [
+                     IconButton(
+                      icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
+                      onPressed:()=> Get.back(),
+                    ),
+                    Text(
+                      'Motivational Space',
+                      style: AppTextStyles.heading20),
+                      Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.refresh, color: AppColors.textPrimary, size: 32,),
+                      onPressed: _shuffleSuggestions,
+                    ),
+                  ],
+                ),
               ),
-              background: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.deepPurple, Colors.indigo],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+              // Main content
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Video Section Heading
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            'Motivational Videos',
+                            style: AppTextStyles.heading20
+                          ),
+                        ),
+                        _buildVideoCard(currentVideo),
+                        if (showAllVideos)
+                          ...youtubeVideos.map(
+                            (video) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: _buildVideoCard(video),
+                            ),
+                          ),
+                        TextButton.icon(
+                          onPressed: () =>
+                              setState(() => showAllVideos = !showAllVideos),
+                          icon: Icon(
+                            showAllVideos
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: Colors.blue,
+                            size: 32,
+                          ),
+                          label: Text(
+                            showAllVideos
+                                ? 'Show Less Videos'
+                                : 'Show More Videos',
+                            style: AppTextStyles.body14.copyWith(color: Colors.blue)
+                          ),
+                        ),
+                       Divider( height: 30,thickness: 6,
+                       color: Colors.blueGrey, radius:BorderRadius.circular(32) ,),
+
+
+                        // Activities Section Heading
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 8.0),
+                          child: Text(
+                            'Mindful Activities',
+                            style: AppTextStyles.heading20
+                          ),
+                        ),
+                        if (showAllActivities)
+                          ...activities.map(
+                            (activity) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: _buildActivityCard(activity),
+                            ),
+                          )
+                        else
+                          _buildActivityCard(currentActivity),
+                        TextButton.icon(
+                          onPressed: () => setState(
+                            () => showAllActivities = !showAllActivities,
+                          ),
+                          icon: Icon(
+                            showAllActivities
+                                ? Icons.keyboard_arrow_up
+                                : Icons.keyboard_arrow_down,
+                            color: Colors.blue,
+                            size: 32,
+                          ),
+                          label: Text(
+                            showAllActivities
+                                ? 'Show Less Activities'
+                                : 'Show More Activities',
+                         style: AppTextStyles.body16.copyWith(color: Colors.blue)
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.refresh, color: Colors.white),
-                onPressed: _shuffleSuggestions,
-              ),
             ],
           ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Video Section Heading
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Motivational Videos',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
-                      ),
-                    ),
-                  ),
-                  _buildVideoCard(currentVideo),
-                  if (showAllVideos)
-                    ...youtubeVideos.map(
-                      (video) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: _buildVideoCard(video),
-                      ),
-                    ),
-                  TextButton.icon(
-                    onPressed:
-                        () => setState(() => showAllVideos = !showAllVideos),
-                    icon: Icon(
-                      showAllVideos
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                    ),
-                    label: Text(
-                      showAllVideos ? 'Show Less Videos' : 'Show More Videos',
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-
-                  // Activities Section Heading
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 8.0),
-                    child: Text(
-                      'Mindful Activities',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo,
-                      ),
-                    ),
-                  ),
-                  if (showAllActivities)
-                    ...activities.map(
-                      (activity) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: _buildActivityCard(activity),
-                      ),
-                    )
-                  else
-                    _buildActivityCard(currentActivity),
-                  TextButton.icon(
-                    onPressed:
-                        () => setState(
-                          () => showAllActivities = !showAllActivities,
-                        ),
-                    icon: Icon(
-                      showAllActivities
-                          ? Icons.keyboard_arrow_up
-                          : Icons.keyboard_arrow_down,
-                    ),
-                    label: Text(
-                      showAllActivities
-                          ? 'Show Less Activities'
-                          : 'Show More Activities',
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -213,7 +226,7 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
       onTap: () => _launchVideo(video['url']!),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+        color: AppColors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
         ),
@@ -250,9 +263,11 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
   Widget _buildActivityCard(Map<String, String> activity) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)],
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6)
+        
+        ],
+             color: AppColors.white,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

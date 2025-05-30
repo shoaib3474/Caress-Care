@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       title: 'Calm Zone',
-      initialRoute: AppRoutes.mood,
+      initialRoute: AppRoutes.doctorRefScreen,
       getPages: AppRoutes.routes,
     );
   }
