@@ -85,27 +85,23 @@ class DoctorRefScreen extends StatelessWidget {
     },
   ];
 
-  Future<void> _launchCaller(String phoneNumber) async {
-    final status = await Permission.phone.request();
+  void _launchCaller(String phoneNumber) async {
+    final Uri callUri = Uri(scheme: 'tel', path: phoneNumber);
+
+    // Request permission
+    var status = await Permission.phone.status;
+    if (!status.isGranted) {
+      status = await Permission.phone.request();
+    }
+
     if (status.isGranted) {
-      final Uri callUri = Uri(scheme: 'tel', path: phoneNumber);
       if (await canLaunchUrl(callUri)) {
         await launchUrl(callUri, mode: LaunchMode.externalApplication);
       } else {
-        Get.snackbar(
-          "Error",
-          "Cannot open dialer for this number.",
-          backgroundColor: AppColors.gradientBottom,
-          colorText: Colors.black,
-        );
+        Get.snackbar("Error", "Cannot open dialer for this number.");
       }
     } else {
-      Get.snackbar(
-        "Permission Denied",
-        "Phone call permission is required.",
-        backgroundColor: AppColors.gradientBottom,
-        colorText: Colors.black,
-      );
+      Get.snackbar("Permission Denied", "Phone call permission is required.");
     }
   }
 
