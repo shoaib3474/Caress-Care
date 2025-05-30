@@ -29,6 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   String? selectedGender;
 
+  bool isRegistering = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,21 +147,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   isPassword: true,
                 ),
                 const SizedBox(height: 20),
-
-                CustomButton(
-                  text: "Register",
-                  onTap: () {
-                    AuthService.registerUser(
-                      firstName: firstNameCtrl.text.trim(),
-                      lastName: lastNameCtrl.text.trim(),
-                      email: emailCtrl.text.trim(),
-                      password: passwordCtrl.text.trim(),
-                      confirmPassword: confirmPwCtrl.text.trim(),
-                      dob: dobCtrl.text.trim(),
-                      gender: selectedGender,
-                    );
-                  },
-                ),
+                isRegistering
+                    ? const CircularProgressIndicator(color: AppColors.white)
+                    : CustomButton(
+                      text: "Register",
+                      onTap: () async {
+                        setState(() {
+                          isRegistering = true;
+                        });
+                        AuthService.registerUser(
+                          firstName: firstNameCtrl.text.trim(),
+                          lastName: lastNameCtrl.text.trim(),
+                          email: emailCtrl.text.trim(),
+                          password: passwordCtrl.text.trim(),
+                          confirmPassword: confirmPwCtrl.text.trim(),
+                          dob: dobCtrl.text.trim(),
+                          gender: selectedGender,
+                        );
+                        setState(() {
+                          isRegistering = false;
+                        });
+                      },
+                    ),
 
                 const SizedBox(height: 25),
 
