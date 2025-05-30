@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, unused_field
 
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:flutter/material.dart';

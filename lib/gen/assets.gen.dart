@@ -25,8 +25,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/bigCart.png
   AssetGenImage get bigCart => const AssetGenImage('assets/images/bigCart.png');
 
+  /// File path: assets/images/calm_zone_logo.png
+  AssetGenImage get calmZoneLogo =>
+      const AssetGenImage('assets/images/calm_zone_logo.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [bigCart];
+  List<AssetGenImage> get values => [bigCart, calmZoneLogo];
 }
 
 class Assets {

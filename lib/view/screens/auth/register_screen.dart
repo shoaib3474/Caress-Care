@@ -10,7 +10,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -44,7 +43,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               children: [
                 Center(
-                  child: Lottie.asset(Assets.anim.splashImageAnim, width: 180),
+                  child: Image.asset(
+                    Assets.images.calmZoneLogo.path,
+                    width: 300,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 const Text(

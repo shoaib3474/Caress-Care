@@ -1,4 +1,4 @@
-import 'package:caress_care/view/screens/age_agreement_screen.dart';
+import 'package:caress_care/view/screens/auth/agreement_screen.dart';
 import 'package:caress_care/view/screens/auth/login_screen.dart';
 import 'package:caress_care/view/screens/auth/register_screen.dart';
 import 'package:caress_care/view/screens/check_list_screen.dart';
@@ -19,10 +19,11 @@ class AppRoutes {
   static const String checklistScreen = '/ChecklistScreen';
   static const String videoRefScreen = '/VideoRefScreen';
   static const String doctorRefScreen = '/DoctorRefScreen';
+  static const String agreementScreen = '/AgreementScreen';
 
   static final routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
-    GetPage(name: ageAgreement, page: () => const AgeAgreementScreen()),
+
     GetPage(name: login, page: () => const LoginScreen()),
     GetPage(name: register, page: () => const RegisterScreen()),
     GetPage(name: mood, page: () => const ModSelectionScreen()),
@@ -30,5 +31,6 @@ class AppRoutes {
     GetPage(name: checklistScreen, page: () => const ChecklistScreen()),
     GetPage(name: videoRefScreen, page: () => VideoRefScreen()),
     GetPage(name: doctorRefScreen, page: () => DoctorRefScreen()),
+    GetPage(name: agreementScreen, page: () => AgreementScreen()),
   ];
 }

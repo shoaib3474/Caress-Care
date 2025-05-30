@@ -2,12 +2,8 @@ import 'package:caress_care/gen/assets.gen.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart'
-    show SharedPreferences;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -19,21 +15,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _navigateBasedOnStatus();
-  }
-
-  Future<void> _navigateBasedOnStatus() async {
-    await Future.delayed(const Duration(seconds: 2));
-
-    final prefs = await SharedPreferences.getInstance();
-    final hasAgreed = prefs.getBool('agreedToTerms') ?? false;
-
-    if (!hasAgreed) {
-      Get.offAllNamed(AppRoutes.ageAgreement);
-    } else {
-      final user = FirebaseAuth.instance.currentUser;
-      Get.offAllNamed(user != null ? AppRoutes.mood : AppRoutes.login);
-    }
+    Future.delayed(const Duration(milliseconds: 300), () {
+      Get.offNamed(AppRoutes.login);
+    });
   }
 
   @override
@@ -54,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             // Circle with icon
             Center(
-              child: Lottie.asset(Assets.anim.splashImageAnim, width: 200),
+              child: Image.asset(Assets.images.calmZoneLogo.path, width: 300),
             ),
             const SizedBox(height: 30),
 
