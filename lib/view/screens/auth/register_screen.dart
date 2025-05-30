@@ -42,7 +42,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Column(
               children: [
                 Center(
-                  child: Lottie.asset(Assets.anim.splashImageAnim, width: 180),
+                  child: Image.asset(
+                    Assets.images.calmZoneLogo.path,
+                    width: 300,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 const Text(

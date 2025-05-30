@@ -8,7 +8,6 @@ import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,7 +35,10 @@ class _LoginScreenState extends State<LoginScreen> {
               // spacing: 10,
               children: [
                 Center(
-                  child: Lottie.asset(Assets.anim.splashImageAnim, width: 200),
+                  child: Image.asset(
+                    Assets.images.calmZoneLogo.path,
+                    width: 300,
+                  ),
                 ),
                 const Text(
                   'Welcome Back!',
@@ -51,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 10),
                 CustomTextField(
                   controller: pwCtrl,
+                  isPassword: true,
                   hintText: 'Enter Your Password',
                 ),
 

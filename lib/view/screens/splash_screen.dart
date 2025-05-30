@@ -4,7 +4,6 @@ import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 300), () {
-      Get.offNamed(AppRoutes.login);
+      Get.offNamed(AppRoutes.agreementScreen);
     });
   }
 
@@ -39,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             // Circle with icon
             Center(
-              child: Lottie.asset(Assets.anim.splashImageAnim, width: 200),
+              child: Image.asset(Assets.images.calmZoneLogo.path, width: 300),
             ),
             const SizedBox(height: 30),
 
