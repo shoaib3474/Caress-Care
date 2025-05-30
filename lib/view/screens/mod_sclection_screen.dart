@@ -120,13 +120,9 @@ class _MoodOptionState extends State<MoodOption> {
         leading: Text(widget.emoji, style: const TextStyle(fontSize: 22)),
         title: Text(
           widget.mood,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-          ),
+          style:AppTextStyles.body16
         ),
-        trailing: const Icon(Icons.chevron_right, color: Colors.white70),
+        trailing: const Icon(Icons.chevron_right, color: AppColors.black),
       ),
     );
   }

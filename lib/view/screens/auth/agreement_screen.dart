@@ -3,6 +3,7 @@ import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AgreementScreen extends StatefulWidget {
   const AgreementScreen({super.key});
@@ -14,8 +15,25 @@ class AgreementScreen extends StatefulWidget {
 class _AgreementScreenState extends State<AgreementScreen> {
   bool _isChecked = false;
 
-  void _onAccept() {
+  @override
+  void initState() {
+    super.initState();
+    _checkAgreementStatus();
+  }
+
+  Future<void> _checkAgreementStatus() async {
+    final prefs = await SharedPreferences.getInstance();
+    final accepted = prefs.getBool('agreementAccepted') ?? false;
+    if (accepted) {
+      // Skip this screen if already accepted
+      Get.offAllNamed(AppRoutes.register);
+    }
+  }
+
+  Future<void> _onAccept() async {
     if (_isChecked) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('agreementAccepted', true);
       Get.offAllNamed(AppRoutes.register);
     }
   }

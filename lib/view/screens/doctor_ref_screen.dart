@@ -1,4 +1,5 @@
-import 'package:caress_care/utils/const/app_colors.dart';
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';

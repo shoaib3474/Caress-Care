@@ -48,10 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: AppTextStyles.heading20White,
                 ),
                 SizedBox(height: 10),
-                CustomTextField(
+                  CustomTextField(
                   controller: emailCtrl,
+                  
                   hintText: 'Enter Your Email',
                 ),
+
                 SizedBox(height: 10),
                 CustomTextField(
                   controller: pwCtrl,
@@ -99,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Text.rich(
                       TextSpan(
-                        text: 'Don\'t have an account? ',
+                        text: 'Don\'t have an account ? ',
                         children: [
                           TextSpan(
                             text: 'Register',

@@ -1,4 +1,5 @@
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -40,14 +41,9 @@ class CustomTextField extends StatelessWidget {
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
-            vertical: 14,
           ),
           hintText: hintText,
-          hintStyle: const TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 14,
-            color: AppColors.grey,
-          ),
+          hintStyle: AppTextStyles.body14,
           border: InputBorder.none,
           prefixIcon:
               prefixIcon != null ? Icon(prefixIcon, color: Colors.grey) : null,

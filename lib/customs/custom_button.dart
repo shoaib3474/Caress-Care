@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use, unused_field
 
 import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatefulWidget {
@@ -56,11 +57,7 @@ class _CustomButtonState extends State<CustomButton> {
           widget.text,
           style:
               widget.textStyle ??
-              const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+              AppTextStyles.body16.copyWith(fontWeight: FontWeight.w500, ),
         ),
       ),
     );
