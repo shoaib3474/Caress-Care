@@ -29,8 +29,43 @@ class $AssetsImagesGen {
   AssetGenImage get calmZoneLogo =>
       const AssetGenImage('assets/images/calm_zone_logo.png');
 
+  /// File path: assets/images/mvt-im_4.png
+  AssetGenImage get mvtIm4 => const AssetGenImage('assets/images/mvt-im_4.png');
+
+  /// File path: assets/images/mvt_im-8.png
+  AssetGenImage get mvtIm8 => const AssetGenImage('assets/images/mvt_im-8.png');
+
+  /// File path: assets/images/mvt_im_1.png
+  AssetGenImage get mvtIm1 => const AssetGenImage('assets/images/mvt_im_1.png');
+
+  /// File path: assets/images/mvt_im_2.png
+  AssetGenImage get mvtIm2 => const AssetGenImage('assets/images/mvt_im_2.png');
+
+  /// File path: assets/images/mvt_im_3.png
+  AssetGenImage get mvtIm3 => const AssetGenImage('assets/images/mvt_im_3.png');
+
+  /// File path: assets/images/mvt_im_5.png
+  AssetGenImage get mvtIm5 => const AssetGenImage('assets/images/mvt_im_5.png');
+
+  /// File path: assets/images/mvt_im_6.png
+  AssetGenImage get mvtIm6 => const AssetGenImage('assets/images/mvt_im_6.png');
+
+  /// File path: assets/images/mvt_im_7.png
+  AssetGenImage get mvtIm7 => const AssetGenImage('assets/images/mvt_im_7.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [bigCart, calmZoneLogo];
+  List<AssetGenImage> get values => [
+    bigCart,
+    calmZoneLogo,
+    mvtIm4,
+    mvtIm8,
+    mvtIm1,
+    mvtIm2,
+    mvtIm3,
+    mvtIm5,
+    mvtIm6,
+    mvtIm7,
+  ];
 }
 
 class Assets {

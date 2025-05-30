@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:caress_care/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -26,14 +27,32 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
     'https://youtu.be/tuPW7oOudVc',
   ];
 
+  final List<String> activityImages = [
+    Assets.images.mvtIm1.path,
+    Assets.images.mvtIm2.path,
+    Assets.images.mvtIm3.path,
+    Assets.images.mvtIm4.path,
+    Assets.images.mvtIm5.path,
+    Assets.images.mvtIm6.path,
+    Assets.images.mvtIm7.path,
+    Assets.images.mvtIm8.path,
+  ];
+
   final List<String> activitySuggestions = [
-    '🧘‍♂️ Try 10 minutes of meditation.',
-    '📓 Write down 3 things you’re grateful for.',
-    '🚶‍♀️ Take a short mindful walk.',
+    'Take a deep breath and relax your body.',
+    'Try 5 minutes of silent meditation.',
+    'Write down three things you’re grateful for.',
+    'Stretch your arms and legs gently.',
+    'Take a short mindful walk.',
+    'Listen to calming music.',
+    'Draw or doodle whatever comes to mind.',
+    'Try a quick body scan meditation.',
   ];
 
   late String currentLink;
   late String currentActivity;
+  bool showMoreVideos = false;
+  bool showActivityImages = false;
 
   @override
   void initState() {
@@ -109,8 +128,34 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
               icon: Icons.ondemand_video_rounded,
               title: 'Motivational Video',
               description: 'Get inspired with a handpicked motivational video.',
-              buttonText: 'Watch Now',
-              onPressed: _launchVideo,
+              buttonText: showMoreVideos ? 'Hide Videos' : 'View More',
+              onPressed: () {
+                setState(() => showMoreVideos = !showMoreVideos);
+              },
+              child:
+                  showMoreVideos
+                      ? Column(
+                        children:
+                            youtubeLinks.map((link) {
+                              return ListTile(
+                                title: Text(
+                                  link,
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                trailing: const Icon(Icons.open_in_new),
+                                onTap: () async {
+                                  final Uri uri = Uri.parse(link);
+                                  if (await canLaunchUrl(uri)) {
+                                    await launchUrl(
+                                      uri,
+                                      mode: LaunchMode.externalApplication,
+                                    );
+                                  }
+                                },
+                              );
+                            }).toList(),
+                      )
+                      : null,
             ),
 
             const SizedBox(height: 30),
@@ -120,10 +165,33 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
               icon: Icons.self_improvement,
               title: 'Try This Activity',
               description: currentActivity,
-              buttonText: 'Refresh Activity',
+              buttonText:
+                  showActivityImages ? 'Hide Images' : 'Refresh Activity',
               onPressed: () {
-                setState(() => _shuffleSuggestions());
+                setState(() {
+                  _shuffleSuggestions();
+                  showActivityImages = !showActivityImages;
+                });
               },
+              child:
+                  showActivityImages
+                      ? Wrap(
+                        spacing: 10,
+                        runSpacing: 10,
+                        children:
+                            activityImages.map((path) {
+                              return ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  path,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }).toList(),
+                      )
+                      : null,
             ),
           ],
         ),
@@ -137,6 +205,7 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
     required String description,
     required String buttonText,
     required VoidCallback onPressed,
+    Widget? child,
   }) {
     return Card(
       elevation: 5,
@@ -174,6 +243,7 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
               ),
               child: Text(buttonText),
             ),
+            if (child != null) ...[const SizedBox(height: 20), child],
           ],
         ),
       ),
