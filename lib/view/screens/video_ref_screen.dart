@@ -184,7 +184,7 @@ class _VideoRefScreenState extends State<VideoRefScreen> {
                             showAllVideos
                                 ? 'Show Less Videos'
                                 : 'Show More Videos',
-                            style: AppTextStyles.body14.copyWith(
+                            style: AppTextStyles.body16.copyWith(
                               color: Colors.blue,
                             ),
                           ),
