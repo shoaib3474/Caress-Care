@@ -64,11 +64,7 @@ class AuthService {
       // Navigate on success
       Get.offAllNamed(AppRoutes.mood); // Or use AppRoutes.mood if imported
     } on FirebaseAuthException catch (e) {
-      Get.snackbar(
-        'Login Failed',
-        e.message ?? 'Unknown error',
-        backgroundColor: AppColors.grey,
-      );
+      Get.snackbar('Login Failed', e.message ?? 'Unknown error');
     } catch (e) {
       Get.snackbar('Error', 'Something went wrong');
     }
