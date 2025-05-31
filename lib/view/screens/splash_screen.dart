@@ -15,8 +15,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 300), () {
-      Get.offNamed(AppRoutes.login);
+    Future.delayed(const Duration(seconds: 3), () {
+      Get.offNamed(AppRoutes.agreementScreen);
     });
   }
 
@@ -43,10 +43,10 @@ class _SplashScreenState extends State<SplashScreen> {
             const SizedBox(height: 30),
 
             // Main heading
-            const Text(
+            Text(
               'Welcome to Calm Zone',
               textAlign: TextAlign.center,
-              style: AppTextStyles.heading20White,
+              style: AppTextStyles.heading20.copyWith(fontSize: 24),
             ),
             const SizedBox(height: 12),
 
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
               child: Text(
                 'Track your health, stay fit, and achieve wellness goals effortlessly.',
                 textAlign: TextAlign.center,
-                style: AppTextStyles.body14,
+                style: AppTextStyles.body16,
               ),
             ),
           ],

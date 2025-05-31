@@ -18,17 +18,17 @@ class _AgreementScreenState extends State<AgreementScreen> {
   @override
   void initState() {
     super.initState();
-    _checkAgreementStatus();
+    // _checkAgreementStatus();
   }
 
-  Future<void> _checkAgreementStatus() async {
-    final prefs = await SharedPreferences.getInstance();
-    final accepted = prefs.getBool('agreementAccepted') ?? false;
-    if (accepted) {
-      // Skip this screen if already accepted
-      Get.offAllNamed(AppRoutes.register);
-    }
-  }
+  // Future<void> _checkAgreementStatus() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   final accepted = prefs.getBool('agreementAccepted') ?? false;
+  //   if (accepted) {
+  //     // Skip this screen if already accepted
+  //     Get.offAllNamed(AppRoutes.register);
+  //   }
+  // }
 
   Future<void> _onAccept() async {
     if (_isChecked) {
@@ -72,11 +72,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
 • Only individuals between the ages of 13 and 23 are permitted to create and maintain an account on Calm Zone.
 
 • Users over the age of 23 are not eligible to use the app and must discontinue use immediately upon reaching their 24th birthday.''',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black87,
-                        height: 1.5,
-                      ),
+                      style: AppTextStyles.body16,
                     ),
                   ),
                 ),
@@ -84,6 +80,7 @@ class _AgreementScreenState extends State<AgreementScreen> {
                 Row(
                   children: [
                     Checkbox(
+                      activeColor: Colors.green,
                       value: _isChecked,
                       onChanged: (value) {
                         setState(() {
@@ -91,12 +88,12 @@ class _AgreementScreenState extends State<AgreementScreen> {
                         });
                       },
                     ),
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'I have read and agree to the terms.',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.blueAccent,
+                        style: AppTextStyles.body16.copyWith(
+                          fontSize: 15,
+                          color: Colors.blue,
                         ),
                       ),
                     ),

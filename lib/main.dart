@@ -12,7 +12,7 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget { 
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       title: 'Calm Zone',
-      initialRoute: AppRoutes.doctorRefScreen,
+      initialRoute: AppRoutes.videoRefScreen,
       getPages: AppRoutes.routes,
     );
   }
