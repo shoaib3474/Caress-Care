@@ -2,6 +2,7 @@
 
     <!-- ✅ Permission must be declared here -->
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    
 
     <application
         android:label="Calm Zone"

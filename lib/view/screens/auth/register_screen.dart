@@ -2,8 +2,10 @@
 import 'package:caress_care/customs/custom_button.dart';
 import 'package:caress_care/customs/custom_text_feild.dart';
 import 'package:caress_care/gen/assets.gen.dart';
+import 'package:caress_care/model/user_model.dart';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/services/auth_service.dart';
+import 'package:caress_care/services/profile_service.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/gestures.dart';
@@ -162,7 +164,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         setState(() {
                           isRegistering = true;
                         });
-                        AuthService.registerUser(
+
+                        // Call registration and wait for completion
+                        await AuthService.registerUser(
                           firstName: firstNameCtrl.text.trim(),
                           lastName: lastNameCtrl.text.trim(),
                           email: emailCtrl.text.trim(),
@@ -171,6 +175,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           dob: dobCtrl.text.trim(),
                           gender: selectedGender,
                         );
+
+                        // If you want to save the user after registration, do it here
+                        final user = UserModel(
+                          firstName: firstNameCtrl.text.trim(),
+                          lastName: lastNameCtrl.text.trim(),
+                          dob: dobCtrl.text.trim(),
+                          gender: selectedGender ?? '',
+                          email: emailCtrl.text.trim(),
+                          // add other fields as needed
+                        );
+                        await ProfileService().saveUser(user);
+
                         setState(() {
                           isRegistering = false;
                         });

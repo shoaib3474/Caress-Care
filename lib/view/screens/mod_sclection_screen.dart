@@ -34,10 +34,11 @@ class ModSelectionScreen extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => Get.toNamed(AppRoutes.profileScreen),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       CircleAvatar(
                         radius: 24,
-                        backgroundColor: Colors.white,
+                        backgroundColor: AppColors.gradientMid,
                         backgroundImage:
                             (user?.avatarPath != null &&
                                     user!.avatarPath!.isNotEmpty)
@@ -56,14 +57,14 @@ class ModSelectionScreen extends StatelessWidget {
                                 : null,
                       ),
                       const SizedBox(width: 10),
-                      Text(
-                        user != null
-                            ? '${user.firstName} ${user.lastName}'
-                            : 'Profile',
-                        style: AppTextStyles.heading20.copyWith(
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
+                      // Text(
+                      //   user != null
+                      //       ? '${user.firstName} ${user.lastName}'
+                      //       : 'Profile',
+                      //   style: AppTextStyles.heading20.copyWith(
+                      //     color: AppColors.textPrimary,
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),

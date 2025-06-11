@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:caress_care/view/screens/profile/profile_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:caress_care/controller/profile_ctrls.dart';
 import 'package:caress_care/customs/custom_button.dart';
@@ -41,10 +40,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void initState() {
     final user = Provider.of<ProfileController>(context, listen: false).user;
     if (user != null) {
-      firstNameCtrl.text = user.firstName;
-      lastNameCtrl.text = user.lastName;
-      emailCtrl.text = user.email;
-      dobCtrl.text = user.dob;
+      firstNameCtrl.text = user.firstName!;
+      lastNameCtrl.text = user.lastName!;
+      emailCtrl.text = user.email!;
+      dobCtrl.text = user.dob!;
       // Only allow valid gender values
       if (['Male', 'Female', 'Other'].contains(user.gender)) {
         selectedGender = user.gender;
@@ -87,7 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   CircleAvatar(
                     radius: 62,
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppColors.gradientTop,
                     backgroundImage:
                         _pickedImage != null
                             ? FileImage(_pickedImage!)
@@ -113,8 +112,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onTap: _pickImage,
                       child: CircleAvatar(
                         radius: 20,
-                        backgroundColor: AppColors.white,
-                        child: Icon(Icons.camera_alt, color: Colors.white),
+                        backgroundColor: AppColors.gradientMid,
+                        child: Icon(
+                          Icons.camera_alt,
+                          color: AppColors.textPrimary,
+                        ),
                       ),
                     ),
                   ),

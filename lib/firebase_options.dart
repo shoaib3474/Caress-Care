@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -66,4 +63,15 @@ class DefaultFirebaseOptions {
     iosClientId: '426165710253-rja606kqr3ljagctcfrko7a04l3itp6p.apps.googleusercontent.com',
     iosBundleId: 'com.example.caressCare',
   );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyApL6YZqp1N_fmSAtZ-GQXLUUr_I3lXXKY',
+    appId: '1:426165710253:web:2c0760ee487c5738698524',
+    messagingSenderId: '426165710253',
+    projectId: 'calm-zone-62696',
+    authDomain: 'calm-zone-62696.firebaseapp.com',
+    storageBucket: 'calm-zone-62696.firebasestorage.app',
+    measurementId: 'G-9ZZB1EMSZW',
+  );
+
 }

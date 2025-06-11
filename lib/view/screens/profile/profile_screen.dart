@@ -1,6 +1,8 @@
+// Make sure the following import points to the file where ProfileController is defined
+// If the class is named differently or in another file, update the import accordingly.
 import 'package:caress_care/controller/profile_ctrls.dart';
 import 'package:caress_care/customs/custom_button.dart';
-import 'package:caress_care/gen/assets.gen.dart';
+import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:caress_care/view/screens/profile/edit_profile_screen.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -126,6 +129,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 builder: (_) => const EditProfileScreen(),
                               ),
                             );
+                          },
+                        ),
+                        SizedBox(height: 16),
+                        CustomButton(
+                          text: "Logout",
+                          onTap: () async {
+                            await FirebaseAuth.instance.signOut();
+                            Get.offAllNamed(AppRoutes.login);
                           },
                         ),
                       ],

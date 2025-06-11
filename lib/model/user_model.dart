@@ -1,17 +1,17 @@
 class UserModel {
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String dob;
-  final String gender;
+  final String? firstName;
+  final String? lastName;
+  final String? email;
+  final String? dob;
+  final String? gender;
   final String? avatarPath;
 
   UserModel({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.dob,
-    required this.gender,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.dob,
+    this.gender,
     this.avatarPath,
   });
 
@@ -25,11 +25,11 @@ class UserModel {
   };
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    firstName: json['firstName'] ?? '',
-    lastName: json['lastName'] ?? '',
-    email: json['email'] ?? '',
-    dob: json['dob'] ?? '',
-    gender: json['gender'] ?? '',
+    firstName: json['firstName'],
+    lastName: json['lastName'],
+    email: json['email'],
+    dob: json['dob'],
+    gender: json['gender'],
     avatarPath: json['avatarPath'],
   );
 }
