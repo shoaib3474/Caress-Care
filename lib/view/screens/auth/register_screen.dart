@@ -185,7 +185,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     style: AppTextStyles.body16,
                     children: [
                       TextSpan(
-                        text: 'Sign in',
+                        text: 'Login',
                         recognizer:
                             TapGestureRecognizer()
                               ..onTap = () {

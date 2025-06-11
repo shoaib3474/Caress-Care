@@ -72,7 +72,166 @@ class _LoginScreenState extends State<LoginScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        showGeneralDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          barrierLabel: "Reset Password",
+                          transitionDuration: const Duration(milliseconds: 350),
+                          pageBuilder: (context, anim1, anim2) {
+                            final resetEmailCtrl = TextEditingController();
+                            return Align(
+                              alignment: Alignment.center,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: ScaleTransition(
+                                  scale: CurvedAnimation(
+                                    parent: anim1,
+                                    curve: Curves.easeOutBack,
+                                  ),
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width *
+                                        0.85,
+                                    padding: const EdgeInsets.all(24),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: AppColors.mainGradient,
+                                      ),
+                                      borderRadius: BorderRadius.circular(24),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          blurRadius: 16,
+                                          offset: Offset(0, 8),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Icon(
+                                          Icons.lock_reset,
+                                          size: 48,
+                                          color: AppColors.textPrimary,
+                                        ),
+                                        const SizedBox(height: 12),
+                                        Text(
+                                          'Reset Password',
+                                          style: AppTextStyles.heading20
+                                              .copyWith(
+                                                color: AppColors.textPrimary,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        TextField(
+                                          controller: resetEmailCtrl,
+                                          decoration: InputDecoration(
+                                            hintText: 'Enter your email',
+                                            filled: true,
+
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              borderSide: BorderSide.none,
+                                            ),
+                                            prefixIcon: Icon(
+                                              Icons.email_outlined,
+                                              color: AppColors.textPrimary,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                              onPressed:
+                                                  () => Navigator.pop(context),
+                                              child: Text(
+                                                'Cancel',
+                                                style: AppTextStyles.body16
+                                                    .copyWith(
+                                                      color: Colors.blue,
+                                                    ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.gradientTop,
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              child: Material(
+                                                color: Colors.transparent,
+                                                child: InkWell(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  onTap: () async {
+                                                    final email =
+                                                        resetEmailCtrl.text
+                                                            .trim();
+                                                    if (email.isNotEmpty) {
+                                                      await AuthService.resetPassword(
+                                                        email: email,
+                                                      );
+                                                      Navigator.pop(context);
+                                                      Get.snackbar(
+                                                        'Reset Link Sent',
+                                                        'Check your email for password reset instructions.',
+                                                        backgroundColor:
+                                                            Colors.green,
+                                                        colorText: Colors.white,
+                                                        snackPosition:
+                                                            SnackPosition.TOP,
+                                                        margin:
+                                                            const EdgeInsets.all(
+                                                              16,
+                                                            ),
+                                                        duration:
+                                                            const Duration(
+                                                              seconds: 3,
+                                                            ),
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 24,
+                                                          vertical: 12,
+                                                        ),
+                                                    child: Text(
+                                                      'Send',
+                                                      style: AppTextStyles
+                                                          .body16
+                                                          .copyWith(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          transitionBuilder: (context, anim1, anim2, child) {
+                            return FadeTransition(opacity: anim1, child: child);
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),

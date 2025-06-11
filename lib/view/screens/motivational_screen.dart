@@ -47,10 +47,7 @@ class _MotivationalScreenState extends State<MotivationalScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
-    _fadeAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
 
     _controller.forward();
   }
@@ -70,10 +67,7 @@ class _MotivationalScreenState extends State<MotivationalScreen>
           // Main background and content
           Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-          colors:   AppColors.mainGradient,
-              
-              ),
+              gradient: LinearGradient(colors: AppColors.mainGradient),
             ),
             child: Center(
               child: SlideTransition(
@@ -143,8 +137,11 @@ class _MotivationalScreenState extends State<MotivationalScreen>
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                  Icon(Icons.star_rounded,
-                                      color: Colors.amberAccent, size: 20),
+                                  Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.amberAccent,
+                                    size: 20,
+                                  ),
                                   const SizedBox(width: 8),
                                   Container(
                                     height: 2,
@@ -181,7 +178,11 @@ class _MotivationalScreenState extends State<MotivationalScreen>
                     onTap: () => Get.back(),
                     child: const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 24),
+                      child: Icon(
+                        Icons.arrow_back_ios_new_rounded,
+                        color: Colors.white,
+                        size: 24,
+                      ),
                     ),
                   ),
                 ),

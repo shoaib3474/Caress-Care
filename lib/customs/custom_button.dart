@@ -57,7 +57,7 @@ class _CustomButtonState extends State<CustomButton> {
           widget.text,
           style:
               widget.textStyle ??
-              AppTextStyles.body16.copyWith(fontWeight: FontWeight.w500, ),
+              AppTextStyles.body16.copyWith(fontWeight: FontWeight.w500),
         ),
       ),
     );
