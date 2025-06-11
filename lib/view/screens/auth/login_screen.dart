@@ -48,9 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: AppTextStyles.heading20White,
                 ),
                 SizedBox(height: 10),
-                  CustomTextField(
+                CustomTextField(
                   controller: emailCtrl,
-                  
+
                   hintText: 'Enter Your Email',
                 ),
 
@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ],
-                        style: AppTextStyles.heading20White,
+                        style: AppTextStyles.body16,
                       ),
                     ),
                   ],
