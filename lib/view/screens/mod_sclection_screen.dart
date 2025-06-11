@@ -1,27 +1,78 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
 import 'dart:ui';
 import 'package:caress_care/routes/app_routes.dart';
 import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:caress_care/utils/const/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:caress_care/controller/profile_ctrls.dart';
 
 class ModSelectionScreen extends StatelessWidget {
   const ModSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<ProfileController>(context).user;
+
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: AppColors.mainGradient,
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      body: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: AppColors.mainGradient,
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.profileScreen),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 24,
+                        backgroundColor: Colors.white,
+                        backgroundImage:
+                            (user?.avatarPath != null &&
+                                    user!.avatarPath!.isNotEmpty)
+                                ? (user.avatarPath!.startsWith('http')
+                                    ? NetworkImage(user.avatarPath!)
+                                    : FileImage(File(user.avatarPath!))
+                                        as ImageProvider)
+                                : null,
+                        child:
+                            (user?.avatarPath == null ||
+                                    user!.avatarPath!.isEmpty)
+                                ? Icon(
+                                  Icons.person,
+                                  color: AppColors.textPrimary,
+                                )
+                                : null,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        user != null
+                            ? '${user.firstName} ${user.lastName}'
+                            : 'Profile',
+                        style: AppTextStyles.heading20.copyWith(
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.sizeOf(context).height * 0.3),
+              Center(child: GlassCard()),
+            ],
           ),
         ),
-        child: Center(child: GlassCard()),
       ),
     );
   }

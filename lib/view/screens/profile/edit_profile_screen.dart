@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:caress_care/view/screens/profile/profile_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:caress_care/controller/profile_ctrls.dart';
 import 'package:caress_care/customs/custom_button.dart';
@@ -194,7 +195,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   avatarPath: _pickedImage?.path, // ✅ Image saved here
                 );
                 controller.updateUser(updatedUser);
-                Navigator.pop(context);
+                Get.back();
               },
               text: "Save",
             ),

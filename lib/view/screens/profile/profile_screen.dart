@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(height: 12),
                         Center(
                           child: CircleAvatar(
-                            radius: 62,
+                            radius: 72,
                             backgroundColor: Colors.white,
                             backgroundImage:
                                 controller.user?.avatarPath != null &&
