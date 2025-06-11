@@ -118,10 +118,7 @@ class _MoodOptionState extends State<MoodOption> {
         onTap: widget.onTap,
         onLongPress: () => setState(() => _hovering = !_hovering),
         leading: Text(widget.emoji, style: const TextStyle(fontSize: 22)),
-        title: Text(
-          widget.mood,
-          style:AppTextStyles.body16
-        ),
+        title: Text(widget.mood, style: AppTextStyles.body16),
         trailing: const Icon(Icons.chevron_right, color: AppColors.black),
       ),
     );

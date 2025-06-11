@@ -1,5 +1,4 @@
 import 'package:caress_care/routes/app_routes.dart';
-import 'package:caress_care/utils/const/app_colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 

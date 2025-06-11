@@ -22,7 +22,7 @@ class AppRoutes {
   static const String videoRefScreen = '/VideoRefScreen';
   static const String doctorRefScreen = '/DoctorRefScreen';
   static const String agreementScreen = '/AgreementScreen';
-  static const String profileEditScreen = '/ProfileEditScreen';
+  static const String editProfileScreen = '/EditProfileScreen';
   static const String profileScreen = '/ProfileScreen';
   static final routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -34,7 +34,7 @@ class AppRoutes {
     GetPage(name: videoRefScreen, page: () => VideoRefScreen()),
     GetPage(name: doctorRefScreen, page: () => DoctorRefScreen()),
     GetPage(name: agreementScreen, page: () => AgreementScreen()),
-    GetPage(name: profileEditScreen, page: () => EditProfileScreen()),
+    GetPage(name: editProfileScreen, page: () => EditProfileScreen()),
     GetPage(name: profileScreen, page: () => ProfileScreen()),
   ];
 }

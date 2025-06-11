@@ -1,35 +1,26 @@
-class ProfileService {
-  // Simulated user data for demonstration purposes
-  Map<String, dynamic> _userData = {
-    'firstName': 'John',
-    'lastName': 'Doe',
-    'email': 'john.doe@example.com',
-    'dob': 'January 1, 1990',
-    'gender': 'Male',
-  };
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../model/user_model.dart';
 
-  // Fetch user profile data
-  Future<Map<String, dynamic>> fetchUserProfile() async {
-    // Simulate a network call with a delay
-    await Future.delayed(Duration(seconds: 2));
-    return _userData;
+class ProfileService {
+  static const String _userKey = 'user';
+
+  Future<void> saveUser(UserModel user) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_userKey, jsonEncode(user.toJson()));
   }
 
-  // Update user profile data
-  Future<bool> updateUserProfile(
-    Map<String, dynamic> updatedData, {
-    required String firstName,
-  }) async {
-    // Simulate a network call with a delay
-    await Future.delayed(Duration(seconds: 2));
+  Future<UserModel?> loadUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(_userKey);
+    if (jsonString != null) {
+      return UserModel.fromJson(jsonDecode(jsonString));
+    }
+    return null;
+  }
 
-    // Update the user data with the new values
-    _userData['firstName'] = updatedData['firstName'] ?? _userData['firstName'];
-    _userData['lastName'] = updatedData['lastName'] ?? _userData['lastName'];
-    _userData['email'] = updatedData['email'] ?? _userData['email'];
-    _userData['dob'] = updatedData['dob'] ?? _userData['dob'];
-    _userData['gender'] = updatedData['gender'] ?? _userData['gender'];
-
-    return true; // Indicate success
+  Future<void> clearUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_userKey);
   }
 }

@@ -1,9 +1,10 @@
 class UserModel {
-  String firstName;
-  String lastName;
-  String email;
-  DateTime dob;
-  String gender;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String dob;
+  final String gender;
+  final String? avatarPath;
 
   UserModel({
     required this.firstName,
@@ -11,27 +12,24 @@ class UserModel {
     required this.email,
     required this.dob,
     required this.gender,
+    this.avatarPath,
   });
 
-  // Method to convert JSON to UserModel
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      firstName: json['firstName'],
-      lastName: json['lastName'],
-      email: json['email'],
-      dob: DateTime.parse(json['dob']),
-      gender: json['gender'],
-    );
-  }
+  Map<String, dynamic> toJson() => {
+    'firstName': firstName,
+    'lastName': lastName,
+    'email': email,
+    'dob': dob,
+    'gender': gender,
+    'avatarPath': avatarPath,
+  };
 
-  // Method to convert UserModel to JSON
-  Map<String, dynamic> toJson() {
-    return {
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'dob': dob.toIso8601String(),
-      'gender': gender,
-    };
-  }
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+    firstName: json['firstName'] ?? '',
+    lastName: json['lastName'] ?? '',
+    email: json['email'] ?? '',
+    dob: json['dob'] ?? '',
+    gender: json['gender'] ?? '',
+    avatarPath: json['avatarPath'],
+  );
 }

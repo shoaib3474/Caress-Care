@@ -1,9 +1,13 @@
-import 'package:caress_care/model/user_model.dart';
+import 'package:caress_care/controller/profile_ctrls.dart';
+import 'package:caress_care/customs/custom_button.dart';
+import 'package:caress_care/gen/assets.gen.dart';
+import 'package:caress_care/utils/const/app_colors.dart';
+import 'package:caress_care/utils/const/app_text.dart';
+import 'package:caress_care/view/screens/profile/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:caress_care/services/profile_service.dart';
-import 'package:caress_care/routes/app_routes.dart';
-import 'package:caress_care/customs/custom_profile_field.dart';
+import 'package:provider/provider.dart';
+import 'dart:io';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -13,85 +17,153 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  UserModel? user;
+  bool _init = false;
 
   @override
-  void initState() {
-    super.initState();
-    fetchUserProfile();
-  }
-
-  Future<void> fetchUserProfile() async {
-    final profileService = ProfileService();
-    user = await profileService.fetchUserProfile() as UserModel?;
-    setState(() {});
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_init) {
+      Provider.of<ProfileController>(context, listen: false).loadUser();
+      _init = true;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<ProfileController>(context);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              Get.toNamed(AppRoutes.profileEditScreen);
-            },
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(colors: AppColors.mainGradient),
+        ),
+        child: SafeArea(
+          child:
+              controller.user == null
+                  ? const Center(
+                    child: CircularProgressIndicator(color: AppColors.white),
+                  )
+                  : Container(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 4),
+                        Row(
+                          spacing: 14,
+                          children: [
+                            IconButton(
+                              onPressed: () => Get.back(),
+                              icon: const Icon(Icons.arrow_back_ios),
+                            ),
+                            Text(
+                              "Profile Screen",
+                              style: AppTextStyles.heading20,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 12),
+                        Center(
+                          child: CircleAvatar(
+                            radius: 62,
+                            backgroundColor: Colors.white,
+                            backgroundImage:
+                                controller.user?.avatarPath != null &&
+                                        controller.user!.avatarPath!.isNotEmpty
+                                    ? FileImage(
+                                      File(controller.user!.avatarPath!),
+                                    )
+                                    : (controller.user?.avatarPath != null &&
+                                            controller
+                                                .user!
+                                                .avatarPath!
+                                                .isNotEmpty
+                                        ? NetworkImage(
+                                          controller.user!.avatarPath!,
+                                        )
+                                        : null),
+                            child:
+                                ((controller.user?.avatarPath == null ||
+                                            controller
+                                                .user!
+                                                .avatarPath!
+                                                .isEmpty) &&
+                                        (controller.user?.avatarPath == null ||
+                                            controller
+                                                .user!
+                                                .avatarPath!
+                                                .isEmpty))
+                                    ? Icon(
+                                      Icons.person,
+                                      size: 50,
+                                      color: AppColors.textPrimary,
+                                    )
+                                    : null,
+                          ),
+                        ),
+                        Text(
+                          '${controller.user!.firstName} ${controller.user!.lastName}',
+                          style: AppTextStyles.heading20White,
+                        ),
+                        const SizedBox(height: 10),
+                        ProfileField(
+                          label: "",
+                          value: controller.user!.firstName,
+                        ),
+                        ProfileField(
+                          label: "",
+                          value: controller.user!.lastName,
+                        ),
+                        ProfileField(label: "", value: controller.user!.dob),
+                        ProfileField(label: "", value: controller.user!.gender),
+                        Spacer(),
+                        CustomButton(
+                          text: "Edit Profile",
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const EditProfileScreen(),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileField extends StatelessWidget {
+  final String label;
+  final String? value;
+
+  const ProfileField({super.key, required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          Text('$label  ', style: AppTextStyles.body16.copyWith(fontSize: 18)),
+          Expanded(
+            child: Text(
+              value ?? '-',
+              style: AppTextStyles.body14.copyWith(fontSize: 16),
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
         ],
       ),
-      body:
-          user == null
-              ? const Center(child: CircularProgressIndicator())
-              : Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomProfileField(
-                      label: 'First Name',
-                      value: user!.firstName,
-                      initialValue: user!.firstName,
-                      controller: TextEditingController(),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomProfileField(
-                      label: 'Last Name',
-                      value: user!.lastName,
-                      initialValue: user!.lastName,
-                      controller: TextEditingController(),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomProfileField(
-                      label: 'Email',
-                      value: user!.email,
-                      initialValue: user!.email,
-                      controller: TextEditingController(),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomProfileField(
-                      label: 'Date of Birth',
-                      value:
-                          user!.dob != null
-                              ? user!.dob.toString().split(' ').first
-                              : '',
-                      initialValue:
-                          user!.dob != null
-                              ? user!.dob.toString().split(' ').first
-                              : '',
-                      controller: TextEditingController(),
-                    ),
-                    const SizedBox(height: 10),
-                    CustomProfileField(
-                      label: 'Gender',
-                      value: user!.gender,
-                      initialValue: user!.gender,
-                      controller: TextEditingController(),
-                    ),
-                  ],
-                ),
-              ),
     );
   }
 }
