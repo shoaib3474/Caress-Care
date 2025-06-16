@@ -22,46 +22,46 @@ class $AssetsAnimGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/bigCart.png
-  AssetGenImage get bigCart => const AssetGenImage('assets/images/bigCart.png');
-
   /// File path: assets/images/calm_zone_logo.png
   AssetGenImage get calmZoneLogo =>
       const AssetGenImage('assets/images/calm_zone_logo.png');
 
-  /// File path: assets/images/mvt-im_4.png
-  AssetGenImage get mvtIm4 => const AssetGenImage('assets/images/mvt-im_4.png');
+  /// File path: assets/images/mvt-im_9.png
+  AssetGenImage get mvtIm9 => const AssetGenImage('assets/images/mvt-im_9.png');
 
-  /// File path: assets/images/mvt_im-8.png
-  AssetGenImage get mvtIm8 => const AssetGenImage('assets/images/mvt_im-8.png');
+  /// File path: assets/images/mvt_im-8.PNG
+  AssetGenImage get mvtIm8 => const AssetGenImage('assets/images/mvt_im-8.PNG');
 
-  /// File path: assets/images/mvt_im_1.png
-  AssetGenImage get mvtIm1 => const AssetGenImage('assets/images/mvt_im_1.png');
+  /// File path: assets/images/mvt_im_1.PNG
+  AssetGenImage get mvtIm1 => const AssetGenImage('assets/images/mvt_im_1.PNG');
 
-  /// File path: assets/images/mvt_im_2.png
-  AssetGenImage get mvtIm2 => const AssetGenImage('assets/images/mvt_im_2.png');
+  /// File path: assets/images/mvt_im_2.PNG
+  AssetGenImage get mvtIm2 => const AssetGenImage('assets/images/mvt_im_2.PNG');
 
-  /// File path: assets/images/mvt_im_3.png
-  AssetGenImage get mvtIm3 => const AssetGenImage('assets/images/mvt_im_3.png');
+  /// File path: assets/images/mvt_im_3.PNG
+  AssetGenImage get mvtIm3 => const AssetGenImage('assets/images/mvt_im_3.PNG');
 
-  /// File path: assets/images/mvt_im_5.png
-  AssetGenImage get mvtIm5 => const AssetGenImage('assets/images/mvt_im_5.png');
+  /// File path: assets/images/mvt_im_4.PNG
+  AssetGenImage get mvtIm4 => const AssetGenImage('assets/images/mvt_im_4.PNG');
 
-  /// File path: assets/images/mvt_im_6.png
-  AssetGenImage get mvtIm6 => const AssetGenImage('assets/images/mvt_im_6.png');
+  /// File path: assets/images/mvt_im_5.PNG
+  AssetGenImage get mvtIm5 => const AssetGenImage('assets/images/mvt_im_5.PNG');
 
-  /// File path: assets/images/mvt_im_7.png
-  AssetGenImage get mvtIm7 => const AssetGenImage('assets/images/mvt_im_7.png');
+  /// File path: assets/images/mvt_im_6.PNG
+  AssetGenImage get mvtIm6 => const AssetGenImage('assets/images/mvt_im_6.PNG');
+
+  /// File path: assets/images/mvt_im_7.PNG
+  AssetGenImage get mvtIm7 => const AssetGenImage('assets/images/mvt_im_7.PNG');
 
   /// List of all assets
   List<AssetGenImage> get values => [
-    bigCart,
     calmZoneLogo,
-    mvtIm4,
+    mvtIm9,
     mvtIm8,
     mvtIm1,
     mvtIm2,
     mvtIm3,
+    mvtIm4,
     mvtIm5,
     mvtIm6,
     mvtIm7,
